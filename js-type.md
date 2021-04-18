@@ -109,20 +109,31 @@ typeof new Boolean() // "object"
 
 缺陷：不能判断原始类型的值，只能判断引用类型的值
 
-原理：检查构造函数的原型对象 `prototype` 是否在实例对象的原型链上
+原理：检查构造函数的 `prototype` 属性是否在实例对象的原型链上（参考 `new` 运算符）
 
 ```js
 function Person() {}
 const p = new Person()
 
 p instanceof Person // true
-Person.prototype.isPrototypeOf(p) // 等同于 instanceof
+Person.prototype.isPrototypeOf(p) // 等同于 instanceof 运算符
 
 'hello' instanceof String // false
 new String('hello') instanceof String // true
 ```
 
-可以通过 `Symbol.hasInstance` 自定义 `instanceof` 运算符在某个类上的行为。
+当一个对象的原型为 `null` 时，`instanceof` 运算符会出现判断失真的情况。
+
+```js
+// 创建一个原型为 null 的对象
+const obj = Object.create(null)
+
+// Object.prototype 不在 obj 的原型链上
+obj instanceof Object // false
+typeof obj // "object"
+```
+
+通过 `Symbol.hasInstance` 可以定义 `instanceof` 运算符在某个类上的行为。
 
 ```js
 class MyString {
@@ -131,9 +142,33 @@ class MyString {
   }
 }
 'hello' instanceof MyString // true
+new String('hello') instanceof MyString // false
 ```
 
-> 面试题：自己实现一个 `instanceof` 运算符。
+> 面试题：实现一个 `instanceof` 运算符。
+
+```js
+function _instanceof(instance, constructor) {
+  // 获取实例对象的原型对象
+  let proto = Object.getPrototypeOf(instance)
+  while (proto) {
+    // 判断构造函数的原型和实例对象的原型是否相等，找到了就返回 true
+    if (proto === constructor.prototype)
+      return true
+    else
+      // 没找到再查找原型对象的原型，直到找到原型链的顶端 null
+      proto = Object.getPrototypeOf(proto)
+  }
+  // 原型链上都没找到，返回 false
+  return false
+}
+
+function Person() {}
+const p = new Person()
+
+_instanceof(p, Person) // true
+_instanceof(p, Object) // true
+```
 
 ### Object.prototype.toString.call()
 
