@@ -68,7 +68,7 @@ p.__proto__.job = 'frontend'
 Person.prototype.job // 'frontend'
 ```
 
-> 面试题：`new` 运算符具体做了什么？实现一个 `new` 运算符。
+> 面试题：`new` 运算符具体做了什么？请实现一个 `new` 运算符。
 
 ```js
 function _new(func, ...args) {

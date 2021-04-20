@@ -48,7 +48,7 @@ o1 // [1]
 o2 // [1]
 ```
 
-> 面试题：函数参数是引用类型的变量，回答代码输出。
+> 面试题：函数参数是引用类型的变量，请回答下面代码的输出。
 
 ```js
 function func(person) {
@@ -113,10 +113,16 @@ typeof new Boolean() // "object"
 
 ```js
 function Person() {}
-const p = new Person()
 
+const p = new Person()
 p instanceof Person // true
-Person.prototype.isPrototypeOf(p) // 等同于 instanceof 运算符
+
+const o = Object.create(Person.prototype)
+o instanceof Person // true 判断原理基于原型链
+
+// instanceof 等价于
+Person.prototype.isPrototypeOf(p) // true
+Person.prototype.isPrototypeOf(o) // true
 
 'hello' instanceof String // false
 new String('hello') instanceof String // true
@@ -145,7 +151,7 @@ class MyString {
 new String('hello') instanceof MyString // false
 ```
 
-> 面试题：实现一个 `instanceof` 运算符。
+> 面试题：`instanceof` 运算符判断的原理是什么？请实现一个 `instanceof` 运算符。
 
 ```js
 function _instanceof(instance, constructor) {
