@@ -1,8 +1,28 @@
 ## this 关键字
 
-### call & apply
+### call() & apply()
 
-### bind
+> 面试题：请实现一个 `call/apply` 函数。
+
+```js
+Function.prototype._call = function (context, ...args) {
+  context = context || window
+  context.fn = this
+  const result = context.fn(...args)
+  delete context.fn
+  return result
+}
+
+Function.prototype._apply = function (context, args = []) {
+  context = context || window
+  context.fn = this
+  const result = context.fn(...args)
+  delete context.fn
+  return result
+}
+```
+
+### bind()
 
 > 面试题：请实现一个 `bind` 函数。
 
