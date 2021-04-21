@@ -107,7 +107,7 @@ new Person() // {} true
 js 提供了绑定 this 的3种方法：
 
 1. Function.prototype.call(thisArg, arg1, arg2, ...)
-2. Function.prototype.apply(thisArg, [arg1, arg2, ...])
+2. Function.prototype.apply(thisArg, argsArray)
 3. Function.prototype.bind(thisArg[, arg1[, arg2[, ...]]])
 
 ### call() & apply()
