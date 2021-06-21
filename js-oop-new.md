@@ -85,3 +85,20 @@ function Person(name) { this.name = name }
 const p1 = new Person('ace') // {name: 'ace'}
 const p2 = _new(Person, 'ace') // {name: 'ace'}
 ```
+
+> 面试题：回答下面代码输出。
+
+```js
+function Page() {
+  return this.hosts
+}
+Page.hosts = ['h1']
+Page.prototype.hosts = ['h2']
+
+const p1 = new Page() // ['h2']
+const p2 = Page() // undefined
+
+console.log(p1.hosts) // undefined
+console.log(p2.hosts) // Uncaught TypeError: can't access property "hosts", p2 is undefined
+```
+
