@@ -31,8 +31,8 @@ o2.fn() // 3, 在 o2 环境下运行
 this 的使用场景主要有以下几个：
 
 1. 全局环境（回调函数）
-2. 对象的方法
-3. 构造函数
+2. 对象的方法（obj.fn()）
+3. 构造函数（new Fn()）
 
 ### 全局环境
 
@@ -100,69 +100,82 @@ new Person() // {} true
 
 > 面试题：如何判断 this 的指向？箭头函数的 this 是什么？
 
-函数中的 this 在函数**运行时**才能确定，箭头函数没有自己的 this，箭头函数在**声明时**继承外部作用域的 this。
+函数中的 this 在函数**运行时**才能确定；箭头函数没有自己的 this，箭头函数在**声明时**继承外部作用域的 this。
 
-## this 绑定
+## this 指向
 
-js 提供了绑定 this 的3种方法：
+js 提供了3种修改 this 指向的方法：
 
-1. Function.prototype.call(thisArg, arg1, arg2, ...)
+1. Function.prototype.call(thisArg[, arg1[, arg2[, ...]]])
 2. Function.prototype.apply(thisArg, argsArray)
 3. Function.prototype.bind(thisArg[, arg1[, arg2[, ...]]])
 
 ### call() & apply()
 
-call 方法用于指定函数内部的 this 指向，然后在指定的作用域中调用该函数。
-
-apply 方法和 call 方法类似，区别是 apply 方法以数组的形式接收函数的参数。
+用法：
 
 ```js
 function fn(name, age) {
-  console.log(this)
-  console.log(name, age)
+  console.log(this, name, age)
 }
 
-fn('ace', 13) // window 'ace' 13
-fn.call({}, 'luffy', 12) // {} 'luffy' 12
-fn.apply({}, ['sabo', 13]) // {} 'sabo' 13
+fn('ace', 18) // window 'ace' 18
+fn.call({}, 'ace', 18) // {} 'ace' 18
+fn.apply({}, ['ace', 18]) // {} 'ace' 18
 ```
 
 > 面试题：请实现一个 call/apply 函数。
 
+实现思路：将传进去的对象作为函数的运行环境调用该函数，形如：obj.fn()
+
+1. 如果不传对象或传递 null/undefined，则对象默认为 window
+2. 在对象上添加一个临时属性，将属性设置为该函数
+3. 在对象上调用该函数
+4. 删除临时属性
+
 ```js
+// call 方法实现
 Function.prototype._call = function (context, ...args) {
   context = context || window
-  context.fn = this
-  const result = context.fn(...args)
-  delete context.fn
+  let sym = Symbol()
+  context[sym] = this
+  let result = context[sym](...args)
+  delete context[sym]
   return result
 }
 
-Function.prototype._apply = function (context, args = []) {
+// apply 方法实现和 call 类似，区别是传递的参数是数组
+Function.prototype._apply = function (context, args) {
+  if (!Array.isArray(args))
+    throw new TypeError('second argument to Function.prototype.apply must be an array')
   context = context || window
-  context.fn = this
-  const result = context.fn(...args)
-  delete context.fn
+  let sym = Symbol()
+  context[sym] = this
+  let result = context[sym](...args)
+  delete context[sym]
   return result
 }
 ```
 
 ### bind()
 
-bind 方法用于将函数体内部的 this 绑定到某个对象，然后返回一个新函数。
+用法：
 
 ```js
 function fn(name, age) {
-  console.log(this)
-  console.log(name, age)
+  console.log(this, name, age)
 }
 
-fn('ace', 13) // window 'ace' 13
-fn.bind({})('luffy', 12) // {} 'luffy' 12
-fn.bind({}, 'sabo')(13) // {} 'sabo' 13
+fn('ace', 18) // window 'ace' 18
+fn.bind({})('ace', 18) // {} 'ace' 18
+fn.bind({}, 'ace')(18) // {} 'ace' 18
 ```
 
 > 面试题：请实现一个 bind 函数。
+
+实现思路：返回一个函数包裹着函数调用，函数调用使用 apply 方法
+
+1. 返回的函数分为两种：支持 new 运算符，不支持 new 运算符
 
 ```js
 // 不支持 new fnBound
@@ -200,3 +213,4 @@ function () {
 }()
 // 结论：一个函数无论 bind 几次，函数中的 this 只由第一次的 bind 决定
 ```
+
