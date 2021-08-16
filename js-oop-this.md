@@ -149,7 +149,22 @@ function Person(name) {
   this.name = name
   return function func() {}
 }
+// 说明函数本质也是对象，是一种可调用的对象
 new Person('ace') // function func() {}
+	
+// 返回日期对象
+function Person(name) {
+  this.name = name
+  return new Date
+}
+new Person('ace') // Date Mon Aug 16 2021 10:40:47 GMT+0800 (中国标准时间)
+
+// 返回正则对象
+function Person(name) {
+  this.name = name
+  return new RegExp(/123/)
+}
+new Person('ace') // /123/
 ```
 
 2. 构造函数 prototype 属性的修改会立刻反应在实例对象的原型上，所以实例对象的原型只是一个引用
@@ -179,10 +194,14 @@ function _new(func, ...args) {
   // 创建一个空对象，空对象的原型指向构造函数的 prototype 属性
   const obj = Object.create(func.prototype)
   // const obj = Object.setPrototypeOf({}, func.prototype)
+
   // 将空对象传递给构造函数中的 this，执行构造函数内部的代码
-  const instance = func.apply(obj, args)
-  // 如果构造函数的返回值是对象，则返回指定对象，否则返回 this 对象
-  return (typeof instance === 'object' && instance !== null) ? instance : obj
+  const result = func.apply(obj, args)
+
+  // 如果构造函数的返回值是对象（函数是特殊对象），则返回指定对象，否则返回 this 对象
+  let isObj = (typeof result === 'object' && result !== null) || typeof result === 'function'
+
+  return isObj ? result : obj
 }
 
 function Person(name) { this.name = name }
@@ -233,28 +252,43 @@ fn.apply({}, ['ace', 18]) // {} 'ace' 18
 实现思路：将传进去的对象作为函数的运行环境调用该函数，形如：obj.fn()
 
 1. 如果不传对象或传递 null/undefined，则对象默认为 window
-2. 在对象上添加一个临时属性，将属性设置为该函数
+2. 在对象上添加一个临时属性，将属性值设置为该函数
 3. 在对象上调用该函数
 4. 删除临时属性
+5. 返回函数调用的结果
 
 ```js
 // call 方法实现
 Function.prototype._call = function (context, ...args) {
+  // 如果传递的对象为空，则默认为 window
   context = context || window
-  let sym = Symbol()
+
+  // 创建 symbol 类型的临时属性指向函数本身
+  let sym = Symbol('fn')
   context[sym] = this
+  
+  // 在该对象中调用该函数
   let result = context[sym](...args)
+  
+  // 函数调用完后删掉临时属性
   delete context[sym]
   return result
 }
+```
 
+```js
 // apply 方法实现和 call 类似，区别是传递的参数是数组
 Function.prototype._apply = function (context, args) {
+  // 第二个参数不是数组类型直接报错
   if (!Array.isArray(args))
     throw new TypeError('second argument to Function.prototype.apply must be an array')
+  
+  // 同 call 方法的实现
   context = context || window
-  let sym = Symbol()
+
+  let sym = Symbol('fn')
   context[sym] = this
+
   let result = context[sym](...args)
   delete context[sym]
   return result
@@ -279,24 +313,32 @@ fn.bind({}, 'ace')(18) // {} 'ace' 18
 
 实现思路：返回一个函数包裹着函数调用，函数调用使用 apply 方法
 
-1. 返回的函数分为两种：支持 new 运算符，不支持 new 运算符
+1. 返回**绑定后**的函数分为两种：不支持 new 运算符，支持 new 运算符
 
 ```js
-// 不支持 new fnBound
-Function.prototype._bind = function (context, ...args) {
+// 不支持 new 运算符
+Function.prototype._bind = function (context, ...argsBound) {
   const self = this
-  return function (...argsBound) {
-    return self.apply(context, args.concat(argsBound))
+  return function (...args) {
+    return self.apply(context, argsBound.concat(args))
   }
 }
 
-// 支持 new fnBound
-Function.prototype._bind = function (context, ...args) {
+// 支持 new 运算符，要忽略绑定时的对象
+Function.prototype._bind = function (context, ...argsBound) {
   const self = this
-  const fnBound = function (...argsBound) {
-    return self.apply(this instanceof fnBound ? this : context, args.concat(argsBound))
+  
+  const fnBound = function (...args) {
+    // 如果使用了 new，即 new fnBound()，this 就是 fnBound 函数的实例
+    // self 作为构造函数，如果 self.apply(this) 没有返回值，那么此时返回的就是构造后的 this（new 运算符的原理）
+    // self 作为普通函数，直接返回 self.apply(context) 的调用结果
+    return self.apply(this instanceof fnBound ? this : context, argsBound.concat(args))
   }
-  fnBound.prototype = Object.create(this.prototype)
+  
+  // 如果该函数有原型，被绑定函数继承该函数的原型
+  if (this.prototype)
+    fnBound.prototype = Object.create(this.prototype)
+
   return fnBound
 }
 ```
