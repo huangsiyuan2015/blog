@@ -307,3 +307,48 @@ arr.reduce((pre, val, index) => {
 }, '') // "one, two & three"
 ```
 
+### 类数组对象转为数组
+
+类数组对象不是真正的数组，所以没有数组实例的方法，但可以通过 call、apply 方法借用数组实例的方法。
+
+```js
+let arrLike = {
+  0: 'js',
+  1: 'vue',
+  length: 2
+}
+
+Array.prototype.push.call(arrLike, 'react', 'angular') // 4
+arrLike // { 0: "js", 1: "vue", 2: "react", 3: "angular", length: 4 }
+```
+
+将类数组对象转为真正数组的方法有：
+
+1. Array.prototype.slice.call()
+2. Array.prototype.concat.apply()
+3. Array.from()
+4. ... 运算符
+
+```js
+let arrLike = {
+  0: 'js',
+  1: 'vue',
+  2: 'react',
+  length: 3
+}
+
+Array.prototype.slice.call(arrLike) // [ "js", "vue", "react" ]
+Array.prototype.concat.apply([], arrLike) // [ "js", "vue", "react" ]
+Array.from(arrLike) // [ "js", "vue", "react" ]
+
+function f1() {
+  return [...arguments]
+}
+f1('js', 'vue', 'react') // [ "js", "vue", "react" ]
+
+function f2(...args) {
+  return args
+}
+f2('js', 'vue', 'react') // [ "js", "vue", "react" ]
+```
+
