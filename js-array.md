@@ -309,6 +309,12 @@ arr.reduce((pre, val, index) => {
 
 ### 类数组对象转为数组
 
+js 中常见的类数组对象有：
+
+1. arguments 对象
+2. HTMLCollection 对象（getElementsByTagName/ClassName/Name 获取）
+3. NodeList 对象（querySelector 获取）
+
 类数组对象不是真正的数组，所以没有数组实例的方法，但可以通过 call、apply 方法借用数组实例的方法。
 
 ```js
@@ -338,7 +344,11 @@ let arrLike = {
 }
 
 Array.prototype.slice.call(arrLike) // [ "js", "vue", "react" ]
+[].slice.call(arrLike) // [ "js", "vue", "react" ]
+
 Array.prototype.concat.apply([], arrLike) // [ "js", "vue", "react" ]
+[].concat.apply([], arrLike) // [ "js", "vue", "react" ]
+
 Array.from(arrLike) // [ "js", "vue", "react" ]
 
 function f1() {
