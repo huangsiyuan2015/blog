@@ -91,7 +91,15 @@ Object.prototype.toString.call(arr) === '[object Array]' // true
 Array.isArray(arr) // true
 ```
 
-### 改变原数组的方法
+### 数组常用方法
+
+js 中数组常用的方法可以分为：
+
+1. 改变原数组的方法
+2. 不改变原数组的方法
+3. 数组遍历的方法
+
+#### 改变原数组的方法
 
 js 中改变原数组的方法可以分为：
 
@@ -173,7 +181,7 @@ array.copyWithin(1, 0) // [ "js", "js", "es", "js" ]
 array // [ "js", "js", "es", "js" ]
 ```
 
-### 不改变原数组的方法
+#### 不改变原数组的方法
 
 js 中不改变原数组的方法可以分为：
 
@@ -213,7 +221,7 @@ arr1.lastIndexOf(NaN) // -1
 arr1.includes(NaN) // true
 ```
 
-### 数组遍历的方法
+#### 数组遍历的方法
 
 js 中数组遍历的方法可以分为：
 
@@ -360,5 +368,109 @@ function f2(...args) {
   return args
 }
 f2('js', 'vue', 'react') // [ "js", "vue", "react" ]
+```
+
+### 数组展开
+
+数组展开也叫数组扁平化处理，即将一个多维嵌套数组展开成一个一维数组。
+
+js 中数组展开的方法有：
+
+1. 递归实现(forEach)
+2. 递归实现(reduce)
+3. 扩展运算符实现
+4. es6 的 flat 方法
+5. toSting & split 方法
+6. JSON 方法 & 正则表达式
+
+#### 递归实现(forEach)
+
+```js
+let arr = [1, [2, [3, 4, 5]]]
+
+function flatten(arr) {
+  let result = []
+
+  arr.forEach((elem) => {
+    if (Array.isArray(elem)) {
+      result.push(...flatten(elem)) // 递归调用
+      // result = result.concat(flatten(elem))
+    } else {
+      result.push(elem)
+    }
+  })
+  return result
+}
+
+flatten(arr) // [ 1, 2, 3, 4, 5 ]
+```
+
+#### 递归实现(reduce)
+
+```js
+let arr = [1, [2, [3, 4, 5]]]
+
+function flatten(arr) {
+  return arr.reduce((pre, val) => {
+    return pre.concat(Array.isArray(val) ? flatten(val) : val)
+  }, [])
+}
+
+flatten(arr) // [ 1, 2, 3, 4, 5 ]
+```
+
+#### 扩展运算符实现
+
+```js
+let arr = [1, [2, [3, 4, 5]]]
+
+function flatten(arr) {
+  while (arr.some(elem => Array.isArray(elem))) {
+    arr = [].concat(...arr)
+  }
+  return arr
+}
+
+flatten(arr) // [ 1, 2, 3, 4, 5 ]
+```
+
+#### es6 的 flat 方法
+
+```js
+let arr = [1, [2, [3, 4, 5]]]
+
+// flat 接收要展开的层数
+arr.flat(2) // [ 1, 2, 3, 4, 5 ]
+
+// 对于不确定的嵌套层数可以设置为 Infinity
+arr.flat(Infinity) // [ 1, 2, 3, 4, 5 ]
+```
+
+#### toString & split 方法
+
+```js
+let arr = [1, [2, [3, 4, 5]]]
+
+// 数组的 toString 方法默认展开所有元素
+// 注意：此时数组元素会全都变为字符串类型
+arr.toString().split(',') // [ "1", "2", "3", "4", "5" ]
+
+// 利用 JSON.Parse 可以将字符串解析成数组
+JSON.parse('[' + arr.toString() + ']') // [ 1, 2, 3, 4, 5 ]
+```
+
+#### JSON 方法 & 正则表达式
+
+```js
+let arr = [1, [2, [3, 4, 5]]]
+
+function flatten(arr) {
+  let str = JSON.stringify(arr)
+  str = str.replace(/(\[|\])/g, '') // 去掉所有的中括号
+  str = '[' + str + ']'
+  return JSON.parse(str)
+}
+
+flatten(arr) // [ 1, 2, 3, 4, 5 ]
 ```
 
