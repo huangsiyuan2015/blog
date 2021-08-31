@@ -181,6 +181,46 @@ array.copyWithin(1, 0) // [ "js", "js", "es", "js" ]
 array // [ "js", "js", "es", "js" ]
 ```
 
+> 练习题：实现一个 push 方法。
+
+```js
+Array.prototype._push = function (...items) {
+
+  let len = this.length
+  let args = items.length
+  
+  // 数组长度超出 js 中的最大正整数，报错
+  if (len + args > 2 ** 53 - 1)
+    throw new TypeError("The number of array is over the max value")
+
+  // 将参数依次放入数组元素后面
+  for (let i = 0; i < args; i++) {
+    this[len + i] = items[i]
+  }
+
+  return this.length
+}
+```
+
+> 练习题：实现一个 pop 方法。
+
+```js
+Array.prototype._pop = function () {
+  
+  let len = this.length
+  
+  if (len === 0)
+    return undefined
+	
+  len--
+  let last = this[len]
+  delete this[len] // 删除最后一个元素
+  this.length = len // 删除元素后要修改数组长度
+  
+  return last
+}
+```
+
 #### 不改变原数组的方法
 
 js 中不改变原数组的方法可以分为：
@@ -293,6 +333,69 @@ it = ['x', 'y', 'z'].values()
 it.next().value // 'x'
 it.next().value // 'y'
 it.next().value // 'z'
+```
+
+> 练习题：实现一个 forEach 方法。
+
+```js
+Array.prototype._forEach = function (callback, thisArg) {
+
+  for (let i = 0; i < this.length; i++) {
+    callback.call(thisArg, this[i], i, this)
+  }
+}
+```
+
+> 练习题：实现一个 map 方法。
+
+```js
+Array.prototype._map = function (callback, thisArg) {
+
+  let newArr = new Array(this.length)
+
+  for (let i = 0; i < this.length; i++) {
+    newArr[i] = callback.call(thisArg, this[i], i, this)
+  }
+
+  return newArr
+}
+```
+
+> 练习题：实现一个 filter 方法。
+
+```js
+Array.prototype._filter = function (callback, thisArg) {
+
+  let newArr = new Array()
+
+  for (let i = 0, j = 0; i < this.length; i++) {
+    if (callback.call(thisArg, this[i], i, this))
+      newArr[j++] = this[i]
+  }
+
+  return newArr
+}
+```
+
+> 练习题：实现一个 reduce 方法
+
+```js
+Array.prototype._reduce = function (callback, initValue) {
+  let accumulator
+  let i = 0
+
+  if (initValue) {
+    accumulator = initValue
+  } else {
+    accumulator = this[i++]
+  }
+  
+  for (; i < this.length; i++) {
+    accumulator = callback.call(null, accumulator, this[i])
+  }
+
+  return accumulator
+}
 ```
 
 > 练习题：使用 reduce 方法实现需求。
@@ -473,4 +576,6 @@ function flatten(arr) {
 
 flatten(arr) // [ 1, 2, 3, 4, 5 ]
 ```
+
+### 数组去重
 
