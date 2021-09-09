@@ -1,4 +1,4 @@
-### 数组排序
+## 数组排序
 
 #### 简单排序
 
@@ -71,7 +71,7 @@ function insertionSort(arr) {
         arr[j + 1] = arr[j]
         arr[j] = temp
       } else {
-        break;
+        break
       }
     }
   }
@@ -113,3 +113,141 @@ shellSort(arr) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
 
 ![image-20210825112532986](C:/Users/Ace/Desktop/image-20210825112532986.png)
+
+
+
+### *快速排序
+
+```js
+let arr = [7, 6, 8, 9, 3, 2, 4, 5, 1]
+
+// 双向指针，填坑法
+function quickSort(arr, left, right) {
+  // 递归出口
+  if (left >= right) return
+
+  let pivot = arr[left]
+  let i = left
+  let j = right
+
+  while (i < j) {
+    while (i < j && arr[j] > pivot) {
+      j--
+    }
+    if (i < j) {
+      arr[i++] = arr[j]
+    }
+    while (i < j && arr[i] < pivot) {
+      i++
+    }
+    if (i < j) {
+      arr[j--] = arr[i]
+    }
+  }
+  arr[i] = pivot
+
+  quickSort(arr, left, i - 1)
+  quickSort(arr, i + 1, right)
+
+  return arr
+}
+
+quickSort(arr, 0, arr.length - 1) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+```
+
+### *归并排序
+
+### 堆排序
+
+### 计数排序(CountingSort)
+
+```js
+let arr = [3, 11, 5, 3, 7, 11, 11, 10, 7, 9]
+
+function countingSort(arr) {
+
+  let min, max
+  min = max = arr[0]
+
+  // 找到数组中的最大值和最小值
+  arr.forEach((num) => {
+    if (num < min) {
+      min = num
+    } else if (num > max) {
+      max = num
+    }
+  })
+
+  // 设置一个计数数组，根据最大值最小值确认数组长度，默认填充为 0
+  let length = max - min + 1
+  let count = Array.from({ length }).fill(0)
+
+  // 统计原数组中每个元素出现的次数
+  arr.forEach((num) => {
+    count[num - min]++
+  })
+
+  // 将计数数组的下标根据统计的次数覆盖到原数组中
+  let i = 0
+  count.forEach((num, index) => {
+    while (num--) {
+      arr[i++] = index + min
+    }
+  })
+
+  return arr
+}
+
+countingSort(arr) // [ 3, 3, 5, 7, 7, 9, 10, 11, 11, 11 ]
+```
+
+```js
+let arr = [3, 11, 5, 3, 7, 11, 11, 10, 7, 9]
+
+// 改善的计数排序，保证排序的稳定性
+function countingSort(arr) {
+
+  let min, max
+  min = max = arr[0]
+
+  // 找到数组中的最大值和最小值
+  arr.forEach((num) => {
+    if (num < min) {
+      min = num
+    } else if (num > max) {
+      max = num
+    }
+  })
+
+  // 设置一个计数数组，根据最大值最小值确认数组长度，默认填充为 0
+  let length = max - min + 1
+  let count = Array.from({ length }).fill(0)
+
+  // 统计原数组中每个元素出现的次数
+  arr.forEach((num) => {
+    count[num - min]++
+  })
+
+  // 将计数数组改造为累加数组，用于计算下标
+  for (let i = 1; i < count.length; i++) {
+    count[i] = count[i - 1] + count[i]
+  }
+
+  // 倒序遍历原数组，将原数组中的元素插入到对应下标
+  // 保证相同元素的相对位置保持不变，确保排序算法的稳定性
+  let result = Array.from({ length: arr.length })
+  for (let i = arr.length - 1; i >= 0; i--) {
+    let j = arr[i] - min
+    result[--count[j]] = arr[i]
+  }
+
+  return result
+}
+
+countingSort(arr) // [ 3, 3, 5, 7, 7, 9, 10, 11, 11, 11 ]
+```
+
+### 基数排序(RadixSort)
+
+### 桶排序
+
