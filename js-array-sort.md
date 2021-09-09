@@ -116,46 +116,94 @@ shellSort(arr) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 
 
 
-### *快速排序
+### *快速排序(QuickSort)
 
 ```js
-let arr = [7, 6, 8, 9, 3, 2, 4, 5, 1]
+let array = [7, 6, 8, 9, 3, 2, 4, 5, 1]
 
 // 双向指针，填坑法
-function quickSort(arr, left, right) {
+function quickSort(array, left, right) {
+
   // 递归出口
   if (left >= right) return
 
-  let pivot = arr[left]
+  // 每次选择左边第一个元素作为轴
+  let pivot = array[left]
+  // 双向指针，左指针和右指针
   let i = left
   let j = right
 
   while (i < j) {
-    while (i < j && arr[j] > pivot) {
+    // 从右边开始遍历，找到一个小于轴的数
+    while (i < j && array[j] > pivot) {
       j--
     }
+    // 将右边小于轴的数放在左边
     if (i < j) {
-      arr[i++] = arr[j]
+      array[i++] = array[j]
     }
-    while (i < j && arr[i] < pivot) {
+    // 从左边开始遍历，找到一个大于轴的数
+    while (i < j && array[i] < pivot) {
       i++
     }
+    // 将左边大于轴的数放到右边
     if (i < j) {
-      arr[j--] = arr[i]
+      array[j--] = array[i]
     }
   }
-  arr[i] = pivot
+  array[i] = pivot // i 的位置就是轴的位置
 
-  quickSort(arr, left, i - 1)
-  quickSort(arr, i + 1, right)
-
-  return arr
+  // 使用递归对左右子序列进行排序
+  quickSort(array, left, i - 1)
+  quickSort(array, i + 1, right)
 }
 
-quickSort(arr, 0, arr.length - 1) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+quickSort(array, 0, array.length - 1)
+array // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
 
-### *归并排序
+```js
+let array = [7, 6, 8, 9, 3, 2, 4, 5, 1]
+
+// 单向指针（快慢指针）
+function quickSort(array, left, right) {
+
+  // 递归出口
+  if (left >= right) return
+
+  // 每次选择左边第一个元素作为轴
+  let pivot = array[left]
+  // 单向指针，快指针和慢指针
+  let i, j
+  i = j = left + 1
+
+  while (j <= right) {
+    // j 是快指针，i 是慢指针
+    // 找到一个小于轴的数，快慢指针指向的值进行交换
+    if (array[j] < pivot) {
+      let temp = array[i]
+      array[i] = array[j]
+      array[j] = temp
+      i++
+    }
+    j++
+  }
+
+  // i - 1 是轴应该在的位置，和轴进行交换
+  let temp = array[left]
+  array[left] = array[i - 1]
+  array[i - 1] = temp
+
+  // 使用递归对左右子序列进行排序
+  quickSort(array, left, i - 2)
+  quickSort(array, i, right)
+}
+
+quickSort(array, 0, array.length - 1)
+array // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+```
+
+### *归并排序(MergeSort)
 
 ### 堆排序
 
