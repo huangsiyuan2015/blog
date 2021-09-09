@@ -249,5 +249,95 @@ countingSort(arr) // [ 3, 3, 5, 7, 7, 9, 10, 11, 11, 11 ]
 
 ### 基数排序(RadixSort)
 
-### 桶排序
+```js
+let arr = [126, 69, 593, 23, 6, 89, 54, 8]
+
+function radixSort(arr) {
+
+  // 找到最大值，确定元素的最高位数
+  let max = arr[0]
+  arr.forEach((num) => {
+    if (num > max) max = num
+  })
+
+  // 根据最大值的位数确定计数排序的次数
+  let digit = String(max).length
+  for (let radix = 0; radix < digit; radix++) {
+    arr = countingSort(arr, radix)
+  }
+
+  function countingSort(arr, radix) {
+
+    // 每个进制位的取值范围是 0-9，所以计数数组长度为 10
+    let count = Array.from({ length: 10 }).fill(0)
+
+    // 统计当前进制位上的数字出现的次数
+    arr.forEach((num) => {
+      count[(num / (10 ** radix) >> 0) % 10]++
+    })
+
+    // 对计数数组进行累加
+    for (let i = 1; i < count.length; i++) {
+      count[i] = count[i - 1] + count[i]
+    }
+
+    // 倒序遍历原数组，将元素插入到新数组的对应位置
+    let result = Array.from({ length: arr.length })
+    for (let i = arr.length - 1; i >= 0; i--) {
+      let j = (arr[i] / (10 ** radix) >> 0) % 10
+      result[--count[j]] = arr[i]
+    }
+
+    return result
+  }
+
+  return arr
+}
+
+radixSort(arr) // [ 6, 8, 23, 54, 69, 89, 126, 593 ]
+```
+
+```js
+let array = [126, 69, 593, 23, 6, 89, 54, 8]
+
+function radixSort(array) {
+
+  // 找到最大值，确定元素的最高位数
+  let max = array[0]
+  array.forEach((num) => {
+    if (num > max) max = num
+  })
+
+  // 根据最大值的位数，确定计数排序的次数
+  let digit = String(max).length
+  for (let i = 0; i < digit; i++) {
+
+    // 创建一个二维数组，横坐标表示基数 0-9，纵坐标存放对应基数的元素
+    let count = Array.from({ length: 10 }).map(() => [])
+    let result = []
+
+    array.forEach((num) => {
+      count[(num / (10 ** i) >> 0) % 10].push(num)
+    })
+    // console.log(count)
+
+    count.forEach((innerArr) => {
+      if (!innerArr.length)
+        return
+      else
+        innerArr.forEach((num) => {
+          result.push(num)
+        })
+    })
+    // console.log(result)
+    array = result
+  }
+
+  return array
+}
+
+radixSort(array) // [ 6, 8, 23, 54, 69, 89, 126, 593 ]
+```
+
+### 桶排序(BucketSort)
 
