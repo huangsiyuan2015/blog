@@ -2,27 +2,28 @@
 
 #### 冒泡排序(BubbleSort)
 
-冒泡排序的原理：每次遍历数组相邻元素两两比较，较大的元素放在右边，这样每遍历一次后末尾一定是最大值；剩下的元素又作为一个新数组，重复上一个过程。这样每次最大值都依次放在了末尾，形成了有序数组。
+算法思想：每次遍历数组相邻元素两两比较，较大的元素放在右边，这样每遍历一次后末尾一定是最大值；剩下的元素又作为一个新数组，重复上一个过程。这样每次最大值都依次放在了末尾，形成了有序数组。
 
 ```js
-let arr = [9, 3, 6, 5, 1]
+let array = [7, 6, 8, 9, 3, 2, 4, 5, 1]
 
-function bubbleSort(arr) {
+function bubbleSort(array) {
+
   // 外循环控制遍历次数，5个元素只需要遍历4次
-  for (let j = arr.length - 1; j > 0; j--) {
+  for (let j = array.length - 1; j > 0; j--) {
     // 内循环控制比较次数，每遍历一次后最右边总是最大值，可以少比较一次
     for (let i = 0; i < j; i++) {
-      if (arr[i] > arr[i + 1]) {
-        let temp = arr[i]
-        arr[i] = arr[i + 1]
-        arr[i + 1] = temp
+      if (array[i] > array[i + 1]) {
+        let temp = array[i]
+        array[i] = array[i + 1]
+        array[i + 1] = temp
       }
     }
   }
-  return arr
 }
 
-bubbleSort(arr) // [ 1, 3, 5, 6, 9 ]
+bubbleSort(array)
+array // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
 
 ### *快速排序(QuickSort)
