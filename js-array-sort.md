@@ -169,29 +169,58 @@ array // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 
 #### 选择排序(SelectionSort)
 
-选择排序的原理：每次遍历数组找出最小值的下标，然后将最小值放在首位；剩下的元素又作为一个新数组，重复上一个过程。这样每次最小值都依次放在了首位，形成了有序数组。
+算法思想：每次遍历数组找出最小值的下标，然后将最小值放在首位；剩下的元素又作为一个新数组，重复上一个过程。这样每次最小值都依次放在了首位，形成了有序数组。
 
 ```js
-let arr = [9, 3, 6, 5, 1]
+let array = [7, 6, 8, 9, 3, 2, 4, 5, 1]
 
-function selectionSort(arr) {
-	// 外循环控制遍历次数，5个元素只需要遍历4次
-  for (let j = 0; j < arr.length - 1; j++) {
+// 每次找最小值放在最左边
+function selectionSort(array) {
+
+  // 外循环控制遍历次数，9个元素只需要遍历8次
+  for (let j = 0; j < array.length - 1; j++) {
     let minIndex = j
-    // 内循环控制比较次数，每次遍历找出最小值的下标，然后交换首位和最小值
-    for (let i = j + 1; i < arr.length; i++) {
-      if (arr[i] < arr[minIndex]) {
+    // 内循环控制比较找到最小值，标记最小值的下标
+    for (let i = j + 1; i < array.length; i++) {
+      if (array[i] < array[minIndex]) {
         minIndex = i
       }
     }
-    let temp = arr[j]
-    arr[j] = arr[minIndex]
-    arr[minIndex] = temp
+    // 将最小值和最左边的值进行交换
+    let temp = array[j]
+    array[j] = array[minIndex]
+    array[minIndex] = temp
   }
-  return arr
 }
 
-selectionSort(arr) // [ 1, 3, 5, 6, 9 ]
+selectionSort(array)
+array // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+```
+
+```js
+let array = [7, 6, 8, 9, 3, 2, 4, 5, 1]
+
+// 每次找最大值放在最右边
+function selectionSort(array) {
+
+  // 外循环控制遍历次数，9个元素只需要遍历8次
+  for (let j = array.length - 1; j > 0; j--) {
+    let maxIndex = j
+    // 内循环控制比较找到最大值，标记最大值的下标
+    for (let i = 0; i <= j; i++) {
+      if (array[i] > array[maxIndex]) {
+        maxIndex = i
+      }
+    }
+    // 将最大值和最右边的值进行交换
+    let temp = array[j]
+    array[j] = array[maxIndex]
+    array[maxIndex] = temp
+  }
+}
+
+selectionSort(array)
+array // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
 
 #### 堆排序(HeapSort)
