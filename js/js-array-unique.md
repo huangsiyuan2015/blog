@@ -1,6 +1,6 @@
 ## 数组去重
 
-### 思路一：比较相等
+### 思路一：比较相等，删掉重复元素
 
 #### 双循环 + splice()
 
@@ -49,7 +49,7 @@ function unique(array) {
 unique(array) // [ 1, 2, 3, 4, 5 ]
 ```
 
-### 思路二：新数组过滤
+### 思路二：加入新数组时过滤
 
 #### forEach 遍历 + indexOf()
 
@@ -136,6 +136,8 @@ function unique(array) {
 unique(array) // [ 1, 2, 3, 4, 5 ]
 ```
 
+### 思路三：利用特殊数据的不重复性
+
 #### set 数据结构
 
 ```js
@@ -170,9 +172,12 @@ function unique(array) {
 
   array.forEach((elem) => {
     // 使用 map.has() 判断元素是否重复
-    if (!map.has(elem)) {
-      map.set(elem, 'unique')
-    }
+    // if (!map.has(elem)) {
+    //   map.set(elem, 'unique')
+    // }
+
+    // 也可以直接利用 map 键值不重复的特性
+    map.set(elem, 'unique')
   })
 
   return [...map.keys()]
@@ -180,4 +185,32 @@ function unique(array) {
 
 unique(array) // [ 1, 2, 3, 4, 5 ]
 ```
+
+	#### obj 数据结构
+
+```js
+function unique(array) {
+
+  // 创建一个 obj 数据结构，obj 的键具有唯一性
+  let obj = {}
+
+  array.forEach((elem) => {
+    // 使用对象的 hasOwnProperty 方法判断属性是否重复
+    // if (!obj.hasOwnProperty(typeof elem + elem)) {
+    //   // 因为对象的键值会默认转为字符串类型
+    //   // typeof elem + elem 是用于区分类型不同字面量相同的值，比如 1 和 '1'
+    //   obj[typeof elem + elem] = elem
+    // }
+
+    // 也可以直接利用 obj 键值不重复的特性
+    obj[typeof elem + elem] = elem
+  })
+
+  return Object.values(obj)
+}
+
+unique(array) // [ 1, 2, 3, 4, 5 ]
+```
+
+
 
