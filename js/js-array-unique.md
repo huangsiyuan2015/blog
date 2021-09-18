@@ -186,7 +186,7 @@ function unique(array) {
 unique(array) // [ 1, 2, 3, 4, 5 ]
 ```
 
-	#### obj 数据结构
+#### obj 数据结构
 
 ```js
 function unique(array) {
