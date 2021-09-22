@@ -9,7 +9,7 @@
   - [数组展开（六种方法）](js/js-array-flat.md)
 - 异步编程
   - [callback & Promise](js/js-async-promise.md)
-    - [手写 promise 以及相关 api](js/js-async-promise-aplus.md)
+    - [手写 Promise 以及相关 api](js/js-async-promise-aplus.md)
 
 ### data structure
 
