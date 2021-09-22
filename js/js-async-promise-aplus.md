@@ -431,3 +431,4 @@ new MyPromise((resolve, reject) => {
 console.log('sync')
 ```
 
+完整代码请看 [MyPromise.js](MyPromise.js) 文件。
