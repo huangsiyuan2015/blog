@@ -71,7 +71,7 @@ Array.prototype.slice.call(arrLike) // [ "js", "vue", "react" ]
 [].slice.call(arrLike) // [ "js", "vue", "react" ]
 ```
 
-####Array.prototype.concat.apply()
+#### Array.prototype.concat.apply()
 
 ```js
 let arrLike = {
