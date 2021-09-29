@@ -1,17 +1,39 @@
 ## 数组排序
 
-#### 冒泡排序(BubbleSort)
+常用的排序算法一般分为：
 
-算法思想：每次遍历数组相邻元素两两比较，较大的元素放在右边，这样每遍历一次后末尾一定是最大值；剩下的元素又作为一个新数组，重复上一个过程。这样每次最大值都依次放在了末尾，形成了有序数组。
+1. 比较类排序算法
+2. 非比较类排序算法
+
+比较类排序算法：通过比较来决定元素间的相对次序，其时间复杂度不能突破 O(nlogn)，因此也称为非线性时间比较类排序
+
+非比较类排序算法：不通过比较来决定元素间的相对次序，它可以突破基于比较排序的时间下限，以线性时间运行，因此也称为线性时间非比较类排序
+
+### 比较类排序
+
+#### 交换排序
+
+##### 冒泡排序(BubbleSort)
+
+算法思路：
+
+1. 每次遍历数组相邻元素两两比较，较大的元素放在右边，这样每遍历一次最大值就交换到了末尾
+2. 剩下的元素又作为一个新数组，重复上述过程。这样每次最大值都依次放在了末尾，形成了有序数组
+
+稳定性：稳定
+
+时间复杂度：O(n²)
+
+空间复杂度：O(1)
 
 ```js
 let array = [7, 6, 8, 9, 3, 2, 4, 5, 1]
 
 function bubbleSort(array) {
 
-  // 外循环控制遍历次数，5个元素只需要遍历4次
+  // 外循环控制遍历次数，n 个元素只需要排序 n-1 次
   for (let j = array.length - 1; j > 0; j--) {
-    // 内循环控制比较次数，每遍历一次后最右边总是最大值，可以少比较一次
+    // 内循环控制元素两两比较，每遍历完一次最大值就交换到最右边
     for (let i = 0; i < j; i++) {
       if (array[i] > array[i + 1]) {
         let temp = array[i]
@@ -19,14 +41,16 @@ function bubbleSort(array) {
         array[i + 1] = temp
       }
     }
+    // console.log(array) // 打印每轮遍历后的结果
   }
+
+  return array
 }
 
-bubbleSort(array)
-array // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+bubbleSort(array) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
 
-### *快速排序(QuickSort)
+##### *快速排序(QuickSort)
 
 ```js
 let array = [7, 6, 8, 9, 3, 2, 4, 5, 1]
@@ -113,7 +137,7 @@ quickSort(array, 0, array.length - 1)
 array // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
 
-### *归并排序(MergeSort)
+#### *归并排序(MergeSort)
 
 ```js
 let array = [7, 6, 8, 9, 3, 2, 4, 5, 1]
@@ -166,8 +190,9 @@ mergeSort(array, 0, array.length - 1)
 array // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
 
+#### 选择排序
 
-#### 选择排序(SelectionSort)
+##### 选择排序(SelectionSort)
 
 算法思想：每次遍历数组找出最小值的下标，然后将最小值放在首位；剩下的元素又作为一个新数组，重复上一个过程。这样每次最小值都依次放在了首位，形成了有序数组。
 
@@ -223,9 +248,70 @@ selectionSort(array)
 array // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
 
-#### 堆排序(HeapSort)
+##### 堆排序(HeapSort)
 
-#### 插入排序(InsertionSort)
+```js
+let array = [7, 6, 8, 9, 3, 2, 4, 5, 1]
+
+function heapSort(array) {
+
+  function buildMaxHeap(array) {
+
+    // 建堆时首先要找到第一个非叶子节点
+    // 第一个非叶子节点是最后一个叶子节点的父节点(i - 1) / 2
+    let lastIndex = array.length - 1
+    for (let i = (lastIndex - 1) >> 1; i >= 0; i--) {
+      heapify(array, i, lastIndex)
+    }
+
+    return array
+  }
+
+  function heapify(array, index, bound) {
+
+    let maxIndex = index
+    let left = 2 * index + 1
+    let right = 2 * index + 2
+
+    if (left > bound || right > bound)
+      return
+
+    if (array[maxIndex] < array[left])
+      maxIndex = left
+
+    if (array[maxIndex] < array[right])
+      maxIndex = right
+
+    if (maxIndex !== index) {
+      swap(array, index, maxIndex)
+      heapify(array, maxIndex, bound)
+    }
+  }
+
+  function swap(array, index1, index2) {
+    let temp = array[index1]
+    array[index1] = array[index2]
+    array[index2] = temp
+  }
+
+  let heap = buildMaxHeap(array)
+  let bound = heap.length - 1
+
+  while (bound > 0) {
+    swap(heap, 0, bound--)
+    heapify(array, 0, bound)
+  }
+
+  return array
+}
+
+heapSort(array)
+array // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+```
+
+#### 插入排序
+
+##### *插入排序(InsertionSort)
 
 插入排序的原理：将数组分为有序和无序的前后两段，每次取无序区间的第一个元素，与有序区间的末尾元素倒着比较，如果小于就插入到前面，大于的话就停止比较。这样就形成了有序数组。
 
@@ -252,7 +338,7 @@ function insertionSort(arr) {
 insertionSort(arr) // [ 1, 3, 5, 6, 9 ]
 ```
 
-#### 希尔排序(ShellSort)
+##### 希尔排序(ShellSort)
 
 希尔排序的原理：希尔排序是对插入排序的优化，使用插入排序将较小的元素从数列末尾移动到首位，需要较多次的比较和交换，因为每次只交换1位；希尔排序通过设置间隔，增大元素每次交换的距离，使得数组变的基本有序，从而减少元素交换的次数，达到优化的目的。
 
@@ -281,9 +367,9 @@ function shellSort(arr) {
 shellSort(arr) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
 
-![image-20210825112532986](C:/Users/Ace/Desktop/image-20210825112532986.png)
+### 非比较类排序
 
-### 计数排序(CountingSort)
+#### 计数排序(CountingSort)
 
 ```js
 let arr = [3, 11, 5, 3, 7, 11, 11, 10, 7, 9]
@@ -371,7 +457,7 @@ function countingSort(arr) {
 countingSort(arr) // [ 3, 3, 5, 7, 7, 9, 10, 11, 11, 11 ]
 ```
 
-### 基数排序(RadixSort)
+#### 基数排序(RadixSort)
 
 ```js
 let arr = [126, 69, 593, 23, 6, 89, 54, 8]
@@ -463,5 +549,5 @@ function radixSort(array) {
 radixSort(array) // [ 6, 8, 23, 54, 69, 89, 126, 593 ]
 ```
 
-### 桶排序(BucketSort)
+#### 桶排序(BucketSort)
 
