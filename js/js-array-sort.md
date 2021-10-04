@@ -326,29 +326,41 @@ array // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 
 ##### *插入排序(InsertionSort)
 
-插入排序的原理：将数组分为有序和无序的前后两段，每次取无序区间的第一个元素，与有序区间的末尾元素倒着比较，如果小于就插入到前面，大于的话就停止比较。这样就形成了有序数组。
+算法思路（打扑克抓牌）：
+
+1. 将数组分为有序和无序的前后两段，第 0 位默认是有序的，第 0 位后面的是无序的
+2. 每次取无序区间的第一个元素，与有序区间的末尾元素倒着比较，如果小于就插入到前面，大于的话就停止比较
+
+稳定性：稳定
+
+时间复杂度：O(n²)
+
+空间复杂度：O(1)
 
 ```js
-let arr = [9, 3, 6, 5, 1]
+let array = [7, 6, 8, 9, 3, 2, 4, 5, 1]
 
-function insertionSort(arr) {
+function insertionSort(array) {
+
   // 外循环控制待排序的第一个元素
-  for (let i = 1; i < arr.length; i++) {
-    // 内循环控制元素的插入，后面元素小于前面元素，就插入到前面
-    for (let j = i - 1; j >= 0; j--) {
-      if (arr[j + 1] < arr[j]) {
-        let temp = arr[j + 1]
-        arr[j + 1] = arr[j]
-        arr[j] = temp
+  for (let i = 1; i < array.length; i++) {
+    // 内循环控制元素的插入，后面元素小于前面，就插入到前面
+    for (let j = i; j >= 0; j--) {
+      if (array[j] < array[j - 1]) {
+        let temp = array[j]
+        array[j] = array[j - 1]
+        array[j - 1] = temp
       } else {
         break
       }
     }
+    // console.log(array) // 打印每轮遍历后的结果
   }
-  return arr
+
+  return array
 }
 
-insertionSort(arr) // [ 1, 3, 5, 6, 9 ]
+insertionSort(array) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
 
 ##### 希尔排序(ShellSort)
