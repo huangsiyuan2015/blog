@@ -653,3 +653,62 @@ radixSort(array) // [ 6, 8, 23, 31, 54, 69, 89, 126, 412, 593 ]
 
 #### 桶排序(BucketSort)
 
+算法思路：
+
+1. 根据数组元素计算所需桶的个数，桶本质上是一个二维数组，横坐标表示桶的个数，纵坐标表示桶中的元素
+2. 遍历数组，将数组元素按照一定的映射规则放入对应的桶中
+3. 对每个桶进行排序，合并排序后的桶
+
+稳定性：稳定
+
+时间复杂度：O(n + k)
+
+空间复杂度：O(n + k)
+
+```js
+let array = [27, 8, 6, 12, 36, 50, 21, 42, 0, 11]
+
+function bucketSort(array) {
+
+  let max = Math.max(...array)
+  let min = Math.min(...array)
+
+  // 计算桶的个数
+  let bucketCount = Math.floor((max - min) / array.length) + 1
+  let buckets = Array.from({ length: bucketCount }).map(() => [])
+
+  // 按照一定的映射规则将数组元素映射到桶中
+  array.forEach((num) => {
+    buckets[Math.floor((num - min) / array.length)].push(num)
+  })
+  // console.log(buckets)
+
+  // 对每个桶进行排序，然后合并排序后的桶
+  let result = []
+  buckets.forEach((bucket) => {
+    if (bucket.length > 1) {
+      insertionSort(bucket)
+    }
+    result.push(...bucket)
+  })
+  // console.log(result)
+
+  return result
+
+  function insertionSort(array) {
+    for (let i = 1; i < array.length; i++) {
+      for (let j = i; j > 0; j--) {
+        if (array[j] < array[j - 1]) {
+          [array[j - 1], array[j]] = [array[j], array[j - 1]]
+        } else {
+          break
+        }
+      }
+    }
+    return array
+  }
+}
+
+bucketSort(array) // [ 0, 6, 8, 11, 12, 21, 27, 36, 42, 50 ]
+```
+
