@@ -41,7 +41,7 @@ function bubbleSort(array) {
         array[i + 1] = temp
       }
     }
-    // console.log(array) // 打印每轮遍历后的结果
+    // console.log(array) // 打印每轮排序后的结果
   }
 
   return array
@@ -97,7 +97,7 @@ function quickSort(array, left, right) {
     }
   }
   array[i] = pivot // i 的位置就是轴的位置
-  // console.log(array) // 打印每轮遍历后的结果
+  // console.log(array) // 打印每轮排序后的结果
 
   // 使用递归对左右子序列进行排序
   quickSort(array, left, i - 1)
@@ -140,7 +140,7 @@ function quickSort(array, left, right) {
   let temp = array[left]
   array[left] = array[i - 1]
   array[i - 1] = temp
-  // console.log(array) // 打印每轮遍历后的结果
+  // console.log(array) // 打印每轮排序后的结果
 
   // 使用递归对左右子序列进行排序
   quickSort(array, left, i - 2)
@@ -211,7 +211,7 @@ function mergeSort(array, left, right) {
     for (let i = 0; i < result.length; i++) {
       array[left + i] = result[i]
     }
-    // console.log(array) // 打印每轮遍历后的结果
+    // console.log(array) // 打印每轮排序后的结果
   }
 }
 
@@ -252,7 +252,7 @@ function selectionSort(array) {
     let temp = array[j]
     array[j] = array[minIndex]
     array[minIndex] = temp
-    // console.log(array) // 打印每轮遍历后的结果
+    // console.log(array) // 打印每轮排序后的结果
   }
 
   return array
@@ -280,7 +280,7 @@ function selectionSort(array) {
     let temp = array[j]
     array[j] = array[maxIndex]
     array[maxIndex] = temp
-    // console.log(array) // 打印每轮遍历后的结果
+    // console.log(array) // 打印每轮排序后的结果
   }
 
   return array
@@ -312,7 +312,7 @@ function heapSort(array) {
   // 把堆顶即最大值放在末尾，剩余元素重新堆化成大顶堆
   while (bound > 0) {
     swap(heap, 0, bound--)
-    // console.log(array) // 打印每轮遍历后的结果
+    // console.log(array) // 打印每轮排序后的结果
     heapify(array, 0, bound)
   }
 
@@ -393,7 +393,7 @@ function insertionSort(array) {
         break
       }
     }
-    // console.log(array) // 打印每轮遍历后的结果
+    // console.log(array) // 打印每轮排序后的结果
   }
 
   return array
@@ -433,7 +433,7 @@ function shellSort(array) {
           break
         }
       }
-      // console.log(array) // 打印每轮遍历后的结果
+      // console.log(array) // 打印每轮排序后的结果
     }
   }
 
@@ -454,7 +454,7 @@ insertionSort(array) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 
 适用于：数据规模大，但是数据范围小的数据样本，比如：高考分数
 
-稳定性：不稳定
+稳定性：稳定
 
 时间复杂度：O(n + k)
 
@@ -548,30 +548,44 @@ countingSort(array) // [ 3, 3, 5, 7, 7, 9, 10, 11, 11, 11 ]
 
 #### 基数排序(RadixSort)
 
-```js
-let arr = [126, 69, 593, 23, 6, 89, 54, 8]
+算法思路：
 
-function radixSort(arr) {
+1. 对数组中整数的每一位（个位、十位、百位、千位、万位...）依次进行计数排序
+
+适用于：非负整数的数据样本，不适用于负数和小数
+
+稳定性：稳定
+
+时间复杂度：O(n × k)
+
+空间复杂度：O(n + k)
+
+```js
+let array = [126, 69, 593, 23, 6, 89, 54, 8, 31, 412]
+
+function radixSort(array) {
 
   // 找到最大值，确定元素的最高位数
-  let max = arr[0]
-  arr.forEach((num) => {
+  let max = array[0]
+  array.forEach((num) => {
     if (num > max) max = num
   })
 
   // 根据最大值的位数确定计数排序的次数
   let digit = String(max).length
   for (let radix = 0; radix < digit; radix++) {
-    arr = countingSort(arr, radix)
+    array = countingSort(array, radix)
   }
+  
+  return array
 
-  function countingSort(arr, radix) {
+  function countingSort(array, radix) {
 
     // 每个进制位的取值范围是 0-9，所以计数数组长度为 10
     let count = Array.from({ length: 10 }).fill(0)
 
     // 统计当前进制位上的数字出现的次数
-    arr.forEach((num) => {
+    array.forEach((num) => {
       count[(num / (10 ** radix) >> 0) % 10]++
     })
 
@@ -581,23 +595,22 @@ function radixSort(arr) {
     }
 
     // 倒序遍历原数组，将元素插入到新数组的对应位置
-    let result = Array.from({ length: arr.length })
-    for (let i = arr.length - 1; i >= 0; i--) {
-      let j = (arr[i] / (10 ** radix) >> 0) % 10
-      result[--count[j]] = arr[i]
+    let result = Array.from({ length: array.length })
+    for (let i = array.length - 1; i >= 0; i--) {
+      let j = (array[i] / (10 ** radix) >> 0) % 10
+      result[--count[j]] = array[i]
     }
+    // console.log(result) // 打印每轮排序后的结果
 
     return result
   }
-
-  return arr
 }
 
-radixSort(arr) // [ 6, 8, 23, 54, 69, 89, 126, 593 ]
+radixSort(array) // [ 6, 8, 23, 31, 54, 69, 89, 126, 412, 593 ]
 ```
 
 ```js
-let array = [126, 69, 593, 23, 6, 89, 54, 8]
+let array = [126, 69, 593, 23, 6, 89, 54, 8, 31, 412]
 
 function radixSort(array) {
 
@@ -628,14 +641,14 @@ function radixSort(array) {
           result.push(num)
         })
     })
-    // console.log(result)
+    // console.log(result) // 打印每轮排序后的结果
     array = result
   }
 
   return array
 }
 
-radixSort(array) // [ 6, 8, 23, 54, 69, 89, 126, 593 ]
+radixSort(array) // [ 6, 8, 23, 31, 54, 69, 89, 126, 412, 593 ]
 ```
 
 #### 桶排序(BucketSort)
