@@ -447,16 +447,29 @@ insertionSort(array) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 
 #### 计数排序(CountingSort)
 
-```js
-let arr = [3, 11, 5, 3, 7, 11, 11, 10, 7, 9]
+算法思路：
 
-function countingSort(arr) {
+1. 用数组下标表示源数组中的元素，统计源数组中元素的出现次数
+2. 根据计数数组的下标和统计的次数，按顺序将元素覆盖到源数组中
+
+适用于：数据规模大，但是数据范围小的数据样本，比如：高考分数
+
+稳定性：不稳定
+
+时间复杂度：O(n + k)
+
+空间复杂度：O(k)
+
+```js
+let array = [3, 11, 5, 3, 7, 11, 11, 10, 7, 9]
+
+function countingSort(array) {
 
   let min, max
-  min = max = arr[0]
+  min = max = array[0]
 
   // 找到数组中的最大值和最小值
-  arr.forEach((num) => {
+  array.forEach((num) => {
     if (num < min) {
       min = num
     } else if (num > max) {
@@ -469,7 +482,7 @@ function countingSort(arr) {
   let count = Array.from({ length }).fill(0)
 
   // 统计原数组中每个元素出现的次数
-  arr.forEach((num) => {
+  array.forEach((num) => {
     count[num - min]++
   })
 
@@ -477,27 +490,27 @@ function countingSort(arr) {
   let i = 0
   count.forEach((num, index) => {
     while (num--) {
-      arr[i++] = index + min
+      array[i++] = index + min
     }
   })
 
-  return arr
+  return array
 }
 
-countingSort(arr) // [ 3, 3, 5, 7, 7, 9, 10, 11, 11, 11 ]
+countingSort(array) // [ 3, 3, 5, 7, 7, 9, 10, 11, 11, 11 ]
 ```
 
 ```js
-let arr = [3, 11, 5, 3, 7, 11, 11, 10, 7, 9]
+let array = [3, 11, 5, 3, 7, 11, 11, 10, 7, 9]
 
 // 改善的计数排序，保证排序的稳定性
-function countingSort(arr) {
+function countingSort(array) {
 
   let min, max
-  min = max = arr[0]
+  min = max = array[0]
 
   // 找到数组中的最大值和最小值
-  arr.forEach((num) => {
+  array.forEach((num) => {
     if (num < min) {
       min = num
     } else if (num > max) {
@@ -510,7 +523,7 @@ function countingSort(arr) {
   let count = Array.from({ length }).fill(0)
 
   // 统计原数组中每个元素出现的次数
-  arr.forEach((num) => {
+  array.forEach((num) => {
     count[num - min]++
   })
 
@@ -521,16 +534,16 @@ function countingSort(arr) {
 
   // 倒序遍历原数组，将原数组中的元素插入到对应下标
   // 保证相同元素的相对位置保持不变，确保排序算法的稳定性
-  let result = Array.from({ length: arr.length })
-  for (let i = arr.length - 1; i >= 0; i--) {
-    let j = arr[i] - min
-    result[--count[j]] = arr[i]
+  let result = Array.from({ length: array.length })
+  for (let i = array.length - 1; i >= 0; i--) {
+    let j = array[i] - min
+    result[--count[j]] = array[i]
   }
 
   return result
 }
 
-countingSort(arr) // [ 3, 3, 5, 7, 7, 9, 10, 11, 11, 11 ]
+countingSort(array) // [ 3, 3, 5, 7, 7, 9, 10, 11, 11, 11 ]
 ```
 
 #### 基数排序(RadixSort)
