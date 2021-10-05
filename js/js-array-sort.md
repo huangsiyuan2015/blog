@@ -52,6 +52,17 @@ bubbleSort(array) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 
 ##### *快速排序(QuickSort)
 
+算法思路：
+
+1. 选择一个元素作为基准值(pivot)，比 pivot 大的值放右边，比 pivot 小的值放左边，这样就形成了以 pivot 为中心的有序序列
+2. 以 pivot 为中心，将序列划分为左右两个子序列，递归调用排序子序列
+
+稳定性：不稳定
+
+时间复杂度：O(nlogn)
+
+空间复杂度：O(logn)
+
 ```js
 let array = [7, 6, 8, 9, 3, 2, 4, 5, 1]
 
@@ -86,14 +97,16 @@ function quickSort(array, left, right) {
     }
   }
   array[i] = pivot // i 的位置就是轴的位置
+  // console.log(array) // 打印每轮遍历后的结果
 
   // 使用递归对左右子序列进行排序
   quickSort(array, left, i - 1)
   quickSort(array, i + 1, right)
+  
+  return array
 }
 
-quickSort(array, 0, array.length - 1)
-array // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+quickSort(array, 0, array.length - 1) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
 
 ```js
@@ -127,14 +140,16 @@ function quickSort(array, left, right) {
   let temp = array[left]
   array[left] = array[i - 1]
   array[i - 1] = temp
+  // console.log(array) // 打印每轮遍历后的结果
 
   // 使用递归对左右子序列进行排序
   quickSort(array, left, i - 2)
   quickSort(array, i, right)
+  
+  return array
 }
 
-quickSort(array, 0, array.length - 1)
-array // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+quickSort(array, 0, array.length - 1) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
 
 #### *归并排序(MergeSort)
