@@ -291,10 +291,32 @@ selectionSort(array) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 
 ##### 堆排序(HeapSort)
 
+算法思路：
+
+1. 先将有序序列堆化成大顶堆，然后将堆顶的最大值放在末尾
+2. 剩余元素再进行堆化，将堆顶的最大值放在次末尾，重复这个过程直到形成有序序列
+
+时间复杂度：O(nlogn)
+
+空间复杂度：O(1)
+
 ```js
 let array = [7, 6, 8, 9, 3, 2, 4, 5, 1]
 
 function heapSort(array) {
+
+  // 将数组建立成一个大顶堆，堆顶是最大值
+  let heap = buildMaxHeap(array)
+  let bound = heap.length - 1
+
+  // 把堆顶即最大值放在末尾，剩余元素重新堆化成大顶堆
+  while (bound > 0) {
+    swap(heap, 0, bound--)
+    // console.log(array) // 打印每轮遍历后的结果
+    heapify(array, 0, bound)
+  }
+
+  return array
 
   function buildMaxHeap(array) {
 
@@ -310,9 +332,9 @@ function heapSort(array) {
 
   function heapify(array, index, bound) {
 
-    let maxIndex = index
-    let left = 2 * index + 1
-    let right = 2 * index + 2
+    let maxIndex = index // 父节点
+    let left = 2 * index + 1 // 左孩子
+    let right = 2 * index + 2 // 右孩子
 
     if (left > bound || right > bound)
       return
@@ -329,25 +351,14 @@ function heapSort(array) {
     }
   }
 
-  function swap(array, index1, index2) {
-    let temp = array[index1]
-    array[index1] = array[index2]
-    array[index2] = temp
+  function swap(array, x, y) {
+    let temp = array[x]
+    array[x] = array[y]
+    array[y] = temp
   }
-
-  let heap = buildMaxHeap(array)
-  let bound = heap.length - 1
-
-  while (bound > 0) {
-    swap(heap, 0, bound--)
-    heapify(array, 0, bound)
-  }
-
-  return array
 }
 
-heapSort(array)
-array // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+heapSort(array) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
 
 #### 插入排序
