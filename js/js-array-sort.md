@@ -154,6 +154,17 @@ quickSort(array, 0, array.length - 1) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 
 #### *归并排序(MergeSort)
 
+算法思路：
+
+1. 将序列分为两个有序的子序列，对两个子序列按照大小顺序进行合并，这样就形成了一个完整的有序序列
+2. 只有一个元素的序列默认是有序的，使用递归将一个有序序列分割到只有一个元素，再进行合并
+
+稳定性：稳定
+
+时间复杂度：O(nlogn)
+
+空间复杂度：O(n)
+
 ```js
 let array = [7, 6, 8, 9, 3, 2, 4, 5, 1]
 
@@ -168,6 +179,8 @@ function mergeSort(array, left, right) {
   mergeSort(array, mid + 1, right)
   // 合并左右两个子序列
   merge(array, left, mid, right)
+
+  return array
 
   function merge(array, left, mid, right) {
 
@@ -198,11 +211,11 @@ function mergeSort(array, left, right) {
     for (let i = 0; i < result.length; i++) {
       array[left + i] = result[i]
     }
+    // console.log(array) // 打印每轮遍历后的结果
   }
 }
 
-mergeSort(array, 0, array.length - 1)
-array // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+mergeSort(array, 0, array.length - 1) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
 
 #### 选择排序
