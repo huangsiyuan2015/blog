@@ -384,7 +384,7 @@ function insertionSort(array) {
   // 外循环控制待排序的第一个元素
   for (let i = 1; i < array.length; i++) {
     // 内循环控制元素的插入，后面元素小于前面，就插入到前面
-    for (let j = i; j >= 0; j--) {
+    for (let j = i; j > 0; j--) {
       if (array[j] < array[j - 1]) {
         let temp = array[j]
         array[j] = array[j - 1]
@@ -404,31 +404,43 @@ insertionSort(array) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 
 ##### 希尔排序(ShellSort)
 
-希尔排序的原理：希尔排序是对插入排序的优化，使用插入排序将较小的元素从数列末尾移动到首位，需要较多次的比较和交换，因为每次只交换1位；希尔排序通过设置间隔，增大元素每次交换的距离，使得数组变的基本有序，从而减少元素交换的次数，达到优化的目的。
+算法思路：
+
+1. 希尔排序是对插入排序的改进，插入排序将较小的元素从序列末尾移动到首位，因为每次只交换1位，所以需要较多次的比较和交换
+2. 在插入排序的基础上，通过设置间隔，增大元素每次交换的距离，使得数组变的基本有序，从而减少元素交换的次数，达到优化的目的
+
+稳定性：不稳定
+
+时间复杂度：取决于步长
+
+空间复杂度：O(1)
 
 ```js
-let arr = [7, 6, 8, 9, 3, 2, 4, 5, 1]
+let array = [7, 6, 8, 9, 3, 2, 4, 5, 1]
 
-function shellSort(arr) {
+function shellSort(array) {
+
   // js中没有整除，使用右移1位模拟2的整除，间隔每次减半
-  for (let gap = arr.length >> 1; gap > 0; gap >>= 1) {
-    // 插入排序
-    for (let i = gap; i < arr.length; i++) {
-      for (let j = i - gap; j >= 0; j -= gap) {
-        if (arr[j + gap] < arr[j]) {
-          let temp = arr[j]
-          arr[j] = arr[j + gap]
-          arr[j + gap] = temp
+  for (let gap = array.length >> 1; gap > 0; gap >>= 1) {
+    // 改变间隔的插入排序，之前的间隔为 1，现在设为 gap
+    for (let i = gap; i < array.length; i++) {
+      for (let j = i; j > 0; j -= gap) {
+        if (array[j] < array[j - gap]) {
+          let temp = array[j]
+          array[j] = array[j - gap]
+          array[j - gap] = temp
         } else {
           break
         }
       }
+      // console.log(array) // 打印每轮遍历后的结果
     }
   }
-  return arr
+
+  return array
 }
 
-shellSort(arr) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+insertionSort(array) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
 
 ### 非比较类排序
