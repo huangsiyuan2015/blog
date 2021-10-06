@@ -18,5 +18,5 @@
 
 ### data structure
 
-- 二叉树
+- [二叉树](data-structure/BinarySearchTree.js)
 
