@@ -712,3 +712,68 @@ function bucketSort(array) {
 bucketSort(array) // [ 0, 6, 8, 11, 12, 21, 27, 36, 42, 50 ]
 ```
 
+
+
+> 面试题：js 中的 Array.prototype.sort() 使用了哪种排序算法？不传递参数会怎样？
+
+1. sort 方法如果不传递比较函数，默认会将元素转为字符串，按照字符的 Unicode 码点逐个进行排序
+   sort 方法如果传递比较函数：返回值小于 0，a 排在 b 的前面；返回值等于 0，a、b 的位置不变；返回值大于 0，b 排在 a 的前面
+
+```js
+[11, 101, 1000].sort() // [ 1000, 101, 11 ]
+[11, 101, 1000].sort((a, b) => a - b) // [ 11, 101, 1000 ]
+```
+
+2. ES 规范并没有规定 sort 方法具体使用哪种排序算法，但要求排序算法是稳定的：
+   - v8 引擎 7.0 版本之前，数组长度小于 10  时，使用插入排序，否则使用快速排序
+   - v8 引擎 7.0 版本之后，因为快速排序是不稳定的排序算法，所以将快速排序改为了 TimSort，TimSort 是一种混合排序算法
+   - [TimSort](https://mp.weixin.qq.com/s/zrhwCosK4fi3uCA9Gms3Lg) 先找出样本中的有序分区(run)，对这些小分区进行**插入排序**，然后再对已排好序的小分区进行**归并排序的合并操作**
+
+
+
+>面试题：分别根据 num 和 name 属性对下列对象进行排序。
+
+```js
+var arr = [
+  { name: 'A', num: 4 },
+  { name: 'G', num: 3 },
+  { name: 'V', num: 5 },
+  { name: 'A', num: 2 },
+  { name: 'X', num: 9 },
+  { name: 'R', num: 6 },
+  { name: 'N', num: undefined },
+]
+
+// 根据 num 排序
+arr.sort((a, b) => a.num - b.num)
+// [
+//   { name: 'A', num: 2 },
+//   { name: 'G', num: 3 },
+//   { name: 'A', num: 4 },
+//   { name: 'V', num: 5 },
+//   { name: 'R', num: 6 },
+//   { name: 'X', num: 9 },
+//   { name: 'N', num: undefined }
+// ]
+
+// 根据 name 排序
+arr.sort((a, b) => {
+  if (a.name < b.name)
+    return -1
+  
+  if (a.name > b.name)
+    return 1
+  
+  return 0
+})
+// [
+//   { name: 'A', num: 2 },
+//   { name: 'A', num: 4 },
+//   { name: 'G', num: 3 },
+//   { name: 'N', num: undefined },
+//   { name: 'R', num: 6 },
+//   { name: 'V', num: 5 },
+//   { name: 'X', num: 9 }
+// ]
+```
+
