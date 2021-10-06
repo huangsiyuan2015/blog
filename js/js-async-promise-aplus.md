@@ -21,7 +21,7 @@ new Promise((resolve, reject) => {
   resolve('sync resolve in executor') // 同步调用 resolve
   // reject('sync reject in executor') // 同步调用 reject
 }).then(
-	value => console.log(value),
+  value => console.log(value),
   error => console.log(error)
 )
 ```
