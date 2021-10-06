@@ -11,8 +11,9 @@
   - [数组展开（六种方法）](js/js-array-flat.md)
   - [数组排序（十大经典排序算法）](js/js-array-sort.md)
 - 异步编程
-  - [callback & Promise](js/js-async-promise.md)
+  - [callback 和 Promise](js/js-async-promise.md)
   - [手写 Promise 以及相关 api](js/js-async-promise-aplus.md)
+  - [Generator 和 async/await](js/js-async-await.md)
 
 ### data structure
 
