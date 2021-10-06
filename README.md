@@ -19,4 +19,5 @@
 ### data structure
 
 - [二叉树](data-structure/BinarySearchTree.js)
+- [二叉堆](data-structure/Heap.js)
 
