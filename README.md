@@ -9,9 +9,10 @@
   - [类数组对象转为数组（四种方法）](js/js-array-like.md)
   - [数组去重（三种思路，九种方法）](js/js-array-unique.md)
   - [数组展开（六种方法）](js/js-array-flat.md)
+  - [数组排序（十大经典排序算法）](js/js-array-sort.md)
 - 异步编程
   - [callback & Promise](js/js-async-promise.md)
-    - [手写 Promise 以及相关 api](js/js-async-promise-aplus.md)
+  - [手写 Promise 以及相关 api](js/js-async-promise-aplus.md)
 
 ### data structure
 

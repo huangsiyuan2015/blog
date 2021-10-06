@@ -712,8 +712,6 @@ function bucketSort(array) {
 bucketSort(array) // [ 0, 6, 8, 11, 12, 21, 27, 36, 42, 50 ]
 ```
 
-
-
 > 面试题：js 中的 Array.prototype.sort() 使用了哪种排序算法？不传递参数会怎样？
 
 1. sort 方法如果不传递比较函数，默认会将元素转为字符串，按照字符的 Unicode 码点逐个进行排序
@@ -728,8 +726,6 @@ bucketSort(array) // [ 0, 6, 8, 11, 12, 21, 27, 36, 42, 50 ]
    - v8 引擎 7.0 版本之前，数组长度小于 10  时，使用插入排序，否则使用快速排序
    - v8 引擎 7.0 版本之后，因为快速排序是不稳定的排序算法，所以将快速排序改为了 TimSort，TimSort 是一种混合排序算法
    - [TimSort](https://mp.weixin.qq.com/s/zrhwCosK4fi3uCA9Gms3Lg) 先找出样本中的有序分区(run)，对这些小分区进行**插入排序**，然后再对已排好序的小分区进行**归并排序的合并操作**
-
-
 
 >面试题：分别根据 num 和 name 属性对下列对象进行排序。
 
