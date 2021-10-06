@@ -13,56 +13,99 @@ js 中的异步编程模型有：
 
 ### Generator
 
-Generator 函数可以暂停执行和恢复执行，这是它能封装异步任务的根本原因。
-此外，它的两个特性使它可以作为异步编程的完整解决方案：函数体内外的数据交换和错误处理机制。
-
-next 返回值的 value 属性，是 Generator 函数向外输出数据；next 方法还可以接受参数，向 Generator 函数体内输入数据。
-
-```js
-function* gen(x) {
-  var y = yield x + 2
-  return y
-}
-
-var it = gen(1)
-it.next() // { value: 3, done: false }
-it.next(2) // { value: 2, done: true }
-```
-
-Generator 函数内部还可以部署错误处理代码，捕获函数体外抛出的错误。
-
-```js
-function* gen(x) {
-  try {
-    var y = yield x + 2
-  } catch (e) {
-    console.log(e)
-  }
-  return y
-}
-
-var it = gen(1)
-it.next() // { value: 3, done: false }
-it.throw('error') // error
-```
-
-使用 Generator 函数封装一个异步操作：
+Generator 函数返回一个迭代器，迭代器每执行一次 next 方法，Generator 函数会执行到下一个 yield 关键字的位置。
 
 ```js
 function* gen() {
-  var url = 'https://api.github.com/users/github';
-  var result = yield fetch(url);
-  console.log(result.bio);
+  let a = yield 1
+  let b = yield (function () { return 2 })()
+  return 3
 }
 
-// 执行这个异步任务
+let it = gen() // 返回一个迭代器
+console.log(it.next()) // { value: 1, done: false }
+console.log(it.next()) // { value: 2, done: false }
+console.log(it.next()) // { value: 3, done: true }
+console.log(it.next()) // { value: undefined, done: true }
+```
+
+Generator 函数之间可以配合 yield 关键字相互调用：
+
+```js
+function* gen1() {
+  yield 1
+  yield* gen2()
+  yield 4
+}
+
+function* gen2() {
+  yield 2
+  yield 3
+}
+
+let it = gen1()
+console.log(it.next()) // { value: 1, done: false }
+console.log(it.next()) // { value: 2, done: false }
+console.log(it.next()) // { value: 3, done: false }
+console.log(it.next()) // { value: 4, done: false }
+console.log(it.next()) // { value: undefined, done: true }
+```
+
+迭代器的 next 方法还可以向 Generator 函数内部传递数据：
+
+```js
+function* gen() {
+  let a = yield 1
+  console.log(a)
+  let b = yield 2
+  console.log(b)
+  return 3
+}
+
 let it = gen()
-it.next().value
-  .then(data => data.json())
-  .then(data => it.next(data))
+console.log(it.next()) // { value: 1, done: false }
+console.log(it.next('hello'))
+// hello
+// { value: 2, done: false }
+console.log(it.next('world'))
+// world
+// { value: 3, done: true }
+console.log(it.next()) // { value: undefined, done: true }
 ```
 
 #### thunk 函数
+
+thunk 函数通过接收一定的参数，产生出定制化的函数，最后使用定制化的函数去完成想要实现的功能。
+
+```js
+// 判断某种数据类型通常的写法
+let isObject = (obj) => {
+  return Object.prototype.toString.call(obj) === '[object Object]'
+}
+
+let isArray = (arr) => {
+  return Object.prototype.toString.call(arr) === '[object Array]'
+}
+
+// 判断其它类型，需要重复写同样的判断逻辑
+// 通过封装，定制化产生判断指定类型的函数
+let isType = (type) => {
+  return (val) => {
+    return Object.prototype.toString.call(val) === `[object ${type}]`
+  }
+}
+
+let isObject = isType('Object')
+isObject({}) // true
+
+let isArray = isType('Array')
+isArray([]) // true
+// isType 就叫作 thunk 函数
+```
+
+#### Generator + thunk(callback)
+
+genarator 函数和 thunk 函数结合，可以使得异步代码写起来像同步代码一样。
 
 ```js
 const fs = require('fs')
@@ -73,6 +116,7 @@ function readFileThunk(filename) {
   }
 }
 
+// 除了 yield 关键字，其它都和同步代码一样
 function* gen() {
   const data1 = yield readFileThunk('1.txt')
   console.log(data1.toString())
@@ -105,7 +149,7 @@ run(gen)
 // world
 ```
 
-#### Promise
+#### Generator + thunk(promise)
 
 ```js
 const fs = require('fs')
@@ -119,6 +163,7 @@ function readFileThunk(filename) {
   })
 }
 
+// 除了 yield 关键字，其它都和同步代码一样
 function* gen() {
   const data1 = yield readFileThunk('1.txt')
   console.log(data1.toString())
@@ -151,9 +196,9 @@ run(gen)
 // world
 ```
 
-#### co 函数库
+#### Generator + co
 
-co 函数库是著名程序员 TJ 发布的一个小工具，用于处理 Generator 函数的自动执行。核心原理其实就是 thunk 函数和 Promise 对象进行配合，包装成一个库。
+co 函数库是著名程序员 TJ 发布的一个小工具，用于处理 Generator 函数的自动执行。核心原理其实就是 thunk 函数和 Promise 对象进行配合。
 
 ```js
 const fs = require('fs')
@@ -182,7 +227,7 @@ co(gen)
 
 ### async/await
 
-async/await 是 js 中异步终极解决方法，它是 co + generator 的语法糖。
+async/await 是 js 异步终极解决方法，本质上是 Generator + co 的语法糖，async 函数总是返回一个 promise。
 
 ```js
 const fs = require('fs')
@@ -196,6 +241,7 @@ function readFileThunk(filename) {
   })
 }
 
+// 将 * 改为了 async，yield 改为了 await
 async function gen() {
   const data1 = await readFileThunk('1.txt')
   console.log(data1.toString())
@@ -207,18 +253,4 @@ gen()
 // hello
 // world
 ```
-
-async 函数对 Generator 函数的改进：
-
-1. 内置执行器：Generator 函数的执行必须靠执行器，因为不能一次性执行完成，所以之后才有了开源的 co 函数库。但是，async 函数和正常的函数一样执行，也不用 co 函数库，也不用使用 next 方法，而 async 函数自带执行器，会自动执行。
-2. 适用性更好：co 函数库有条件约束，yield 命令后面只能是 Thunk 函数或 Promise 对象，但是 async 函数的 await 关键词后面，可以不受约束。
-3. 可读性更好：async 和 await，比起使用 * 号和 yield，语义更清晰明了。
-
-
-
-
-
-
-
-
 
