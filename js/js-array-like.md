@@ -26,9 +26,16 @@ arrLike // { 0: "js", 1: "vue", 2: "react", 3: "angular", length: 4 }
 
 ## 类数组对象转为数组
 
-### es6
+类数组对象转为数组的方法有：
 
-#### Array.from()
+1. Array.from()
+2. 展开运算符
+3. Array.prototype.slice.call()
+4. Array.prototype.concat.apply()
+
+其中 Array.from() 和 ... 运算符是 es6 新增的，es6 之前的办法是巧用数组的 slice 和 concat 方法。
+
+### Array.from()
 
 ```js
 let arrLike = {
@@ -41,7 +48,7 @@ let arrLike = {
 Array.from(arrLike) // [ "js", "vue", "react" ]
 ```
 
-#### 展开运算符
+### 展开运算符
 
 ```js
 function f() {
@@ -55,9 +62,7 @@ function g(...args) {
 g('foo', 'bar', 'baz') // [ "foo", "bar", "baz" ]
 ```
 
-### es5
-
-#### Array.prototype.slice.call()
+### Array.prototype.slice.call()
 
 ```js
 let arrLike = {
@@ -71,7 +76,7 @@ Array.prototype.slice.call(arrLike) // [ "js", "vue", "react" ]
 [].slice.call(arrLike) // [ "js", "vue", "react" ]
 ```
 
-#### Array.prototype.concat.apply()
+### Array.prototype.concat.apply()
 
 ```js
 let arrLike = {
@@ -97,5 +102,76 @@ let obj = { 1: 222, 2: 123, 5: 888 }
 Array.from({ length: 12 }).map((elem, index) => {
   return obj[index + 1] || null
 })
+```
+
+## 数组的浅拷贝
+
+上述四种方法既然可以将类数组对象转为数组，那么也可以从一个数组返回一个新数组，即数组的浅拷贝。
+
+数组浅拷贝的方法有：
+
+1. Array.from()
+2. 展开运算符
+3. Array.prototype.slice()
+4. Array.prototype.concat()
+
+### Array.from()
+
+```js
+const a1 = [1, {foo: 2}, 3]
+const a2 = Array.from(a1)
+
+a2 // [1, {foo: 2}, 3]
+
+a1[0] = 10
+a1[1].foo = 20
+
+a1 // [10, {foo: 20}, 3]
+a2 // [1, {foo: 20}, 3]
+```
+
+### 展开运算符
+
+```js
+const a1 = [1, {foo: 2}, 3]
+const a2 = [...a1]
+
+a2 // [1, {foo: 2}, 3]
+
+a1[0] = 10
+a1[1].foo = 20
+
+a1 // [10, {foo: 20}, 3]
+a2 // [1, {foo: 20}, 3]
+```
+
+### Array.prototype.slice()
+
+```js
+const a1 = [1, {foo: 2}, 3]
+const a2 = a1.slice()
+
+a2 // [1, {foo: 2}, 3]
+
+a1[0] = 10
+a1[1].foo = 20
+
+a1 // [10, {foo: 20}, 3]
+a2 // [1, {foo: 20}, 3]
+```
+
+### Array.prototype.concat()
+
+```js
+const a1 = [1, {foo: 2}, 3]
+const a2 = a1.concat()
+
+a2 // [1, {foo: 2}, 3]
+
+a1[0] = 10
+a1[1].foo = 20
+
+a1 // [10, {foo: 20}, 3]
+a2 // [1, {foo: 20}, 3]
 ```
 

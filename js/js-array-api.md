@@ -1,6 +1,4 @@
-## 数组
-
-### 构造数组的方法
+## 数组构造
 
 js 中构造数组的方法有：
 
@@ -9,7 +7,7 @@ js 中构造数组的方法有：
 3. Array.of() 方法
 4. Array.from() 方法
 
-#### 数组字面量
+### 数组字面量
 
 ```js
 let arr = [1, 2, 3] // 指定数组元素
@@ -20,7 +18,7 @@ arr.length = 3 // 指定数组长度，数组元素为 empty
 arr // [ <3 empty slots> ]
 ```
 
-#### Array() 构造函数
+### Array() 构造函数
 
 ```js
 // 参数长度大于 1，会被视为元素填充到数组
@@ -36,7 +34,7 @@ Array(3) // [ <3 empty slots> ]
 Array('x') // [ "x" ]
 ```
 
-#### Array.of() 方法
+### Array.of() 方法
 
 ```js
 // Array.of() 接收的参数全都填充为数组元素
@@ -47,7 +45,7 @@ Array.of(3) // [ 3 ]
 Array(3) // [ <3 empty slots> ]
 ```
 
-#### Array.from() 方法
+### Array.from() 方法
 
 ```js
 // Array.from() 用来快捷地将类数组对象转为数组
@@ -67,7 +65,7 @@ Array.from({
 }, elem => elem.repeat(3)) // [ "xxx", "yyy", "zzz" ]
 ```
 
-### 判断数组的方法
+## 数组检测
 
 ```js
 let arr = []
@@ -91,7 +89,11 @@ Object.prototype.toString.call(arr) === '[object Array]' // true
 Array.isArray(arr) // true
 ```
 
-### 数组常用方法
+> 面试题：如何判断一个变量是否为数组？
+
+略...
+
+## 数组常用方法
 
 js 中数组常用的方法可以分为：
 
@@ -99,7 +101,7 @@ js 中数组常用的方法可以分为：
 2. 不改变原数组的方法
 3. 数组遍历的方法
 
-#### 改变原数组的方法
+### 改变原数组的方法
 
 js 中改变原数组的方法可以分为：
 
@@ -221,7 +223,7 @@ Array.prototype._pop = function () {
 }
 ```
 
-#### 不改变原数组的方法
+### 不改变原数组的方法
 
 js 中不改变原数组的方法可以分为：
 
@@ -261,7 +263,7 @@ arr1.lastIndexOf(NaN) // -1
 arr1.includes(NaN) // true
 ```
 
-#### 数组遍历的方法
+### 数组遍历的方法
 
 js 中数组遍历的方法可以分为：
 
@@ -418,3 +420,8 @@ arr.reduce((pre, val, index) => {
 }, '') // "one, two & three"
 ```
 
+> 面试题：数组的原生方法有哪些？
+
+1. 改变原数组的方法...
+2. 不改变原数组的方法...
+3. 数组遍历相关的方法...
