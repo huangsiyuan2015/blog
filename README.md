@@ -12,8 +12,9 @@
   - [数组排序（十大经典排序算法）](js/js-array-sort.md)
 - 异步编程
   - [callback 和 Promise](js/js-async-promise.md)
-  - [手写 Promise 以及相关 api](js/js-async-promise-aplus.md)
   - [Generator 和 async/await](js/js-async-await.md)
+  - [手写 EventEmitter（发布订阅模式）](js/js-async-event.md)
+  - [手写 Promise 以及相关 api](js/js-async-promise-aplus.md)
 
 ### data structure
 
