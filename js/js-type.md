@@ -7,8 +7,8 @@ js 中的数据类型分为**原始类型**(primitive)和**引用类型**(refere
 - Boolean
 - Null
 - Undefined
-- Symbol
-- BigInt
+- Symbol(es6)
+- BigInt(es6)
 
 其余都为引用类型，包括：
 
@@ -29,12 +29,13 @@ js 中的数据类型分为**原始类型**(primitive)和**引用类型**(refere
 
 1. js 中的数据类型分为两大类：原始类型和引用类型
    原始类型包括 number、string、boolean、null、undefined、symbol、bigint
-   引用类型包括 object、array、function 以及一些包装对象和内置对象
+   引用类型包括 object、array、function 以及一些包装对象和工具对象
+   原始类型的值存在放栈内存当中，引用类型的值存在在堆内存当中
 2. 虽然 typeof null 返回 object，但 null 不是对象
 
 ### 原始类型 vs 引用类型
 
-原始类型的变量存储的是**值**，引用类型的变量存储的是**地址**，地址指向内存中的一块数据。
+原始类型的变量存储的是**值**，引用类型的变量存储的是**地址(引用)**，地址指向内存中的一块数据。
 
 ```js
 let v1 = 1
@@ -72,19 +73,6 @@ const p2 = func(p1)
 console.log(p1) // {name: 'luffy', age: 13}
 console.log(p2) // {name: 'ace', age: 14}
 ```
-
-### Number
-
-js 中的数值采用 IEEE754 标准的双精度浮点数类型(double，64位)进行编码，
-
-> 面试题：0.1 + 0.2 == 0.3 的输出结果？如何解决这个问题？
-
-```js
-0.1 + 0.2 === 0.3 // false
-0.2 + 0.3 === 0.5 // true
-```
-
-### String
 
 ## 类型检测
 
@@ -224,6 +212,8 @@ Object.prototype.toString.call(new String()) // "[object String]"
 Object.prototype.toString.call(new Boolean()) // "[object Boolean]"
 Object.prototype.toString.call(new Date()) // "[object Date]"
 Object.prototype.toString.call(/123/) // "[object RegExp]"
+Object.prototype.toString.call(Math) // "[object Math]"
+Object.prototype.toString.call(JSON) // "[object JSON]"
 Object.prototype.toString.call(document) // "[object HTMLDocument]"
 Object.prototype.toString.call(window) // "[object Window]"
 ```

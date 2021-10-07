@@ -4,6 +4,7 @@
 
 ### js
 
+- [数据类型和类型转换](js/js-type.md)
 - 数组
   - [数组常用 api 总结](js/js-array-api.md)
   - [类数组对象转为数组（四种方法）](js/js-array-like.md)
