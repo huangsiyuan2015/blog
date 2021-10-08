@@ -1,52 +1,3 @@
-## 原型
-
-js 中一切皆对象，每个实例对象都拥有一个原型对象，可以从原型对象中继承属性和方法。
-
-js 中函数也是对象，函数是一种特殊的对象，特殊在函数是一种可调用的对象。作为对象，函数也拥有属性和方法。
-
-```js
-function func() {}
-
-func instanceof Object // true
-typeof func.prototype // "object"
-typeof func.call // "function"
-```
-
-大部分函数都有一个 prototype 属性，当函数作为构造函数被调用时，函数的 prototype 属性会作为实例对象的原型进行构造，从而使得实例对象继承原型上的属性和方法。
-
-原型作为对象，也拥有自己的原型，这样就形成了一条原型链，对象查找属性时会一直沿着原型链向上查找，原型链的顶端指向 null。原型对象不光有自己的原型对象，还有一个 constructor 属性，指回实例对象的构造函数。
-
-```js
-function Person() {}
-Person.prototype.name = 'people'
-Person.prototype.say = function () { return this.name }
-
-let p = new Person
-p.name // "people"
-p.say() // "people"
-
-Person.prototype.constructor === Person // true
-Object.getPrototypeOf(p).constructor === Person // true
-```
-
-虽然实例对象的原型和构造函数的 prototype 属性指向同一个对象，但二者在概念上还是有所区分。
-
-原型对象是针对实例对象而言的，函数作为实例对象也拥有自己的原型对象，函数的原型对象是其构造函数 Function 的 prototype 属性，而不是自身的 prototype 属性，注意要区分函数的原型对象和函数的 prototype 属性。
-
-```js
-function func() {}
-
-// 函数作为实例对象
-Object.getPrototypeOf(func) === Function.prototype // true
-
-// 函数作为构造函数
-Object.getPrototypeOf(new func) === func.prototype // true
-```
-
-构造函数、实例对象和原型对象之间的关系：
-
-![image-20210905161944729](js-oop-inherit.assets/prototype.png)
-
 ## 继承
 
 js 是基于**原型**继承的，即使 es6 新增了 class 关键字，本质上还是基于原型来实现继承。
@@ -63,7 +14,7 @@ js 中继承的几种方式：
 
 ### 原型链继承
 
-原型链继承是通过将父类的实例对象设置为子类的原型对象，从而使得子类继承父类的属性，但对于引用类型的属性无法私有化。
+原型链继承是通过将父类的实例对象设置为子类构造函数的 prototype 属性，从而使得子类继承父类的属性，但对于引用类型的属性无法私有化。
 
 ```js
 function Parent() {
