@@ -9,6 +9,7 @@
   - [对象的浅拷贝和深拷贝](js/js-type-clone.md)
 - 面向对象
   - [创建对象的方法和 new 运算符](js/js-oop-object.md)
+  - [this 指向和 call/apply/bind 方法](js/js-oop-this.md)
   - [原型和原型链](js/js-oop-proto.md)
   - [原型链和继承（七种继承方式）](js/js-oop-inherit.md)
 - 数组
