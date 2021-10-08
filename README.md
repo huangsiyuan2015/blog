@@ -7,6 +7,9 @@
 - 数据类型
   - [数据类型和类型转换](js/js-type.md)
   - [对象的浅拷贝和深拷贝](js/js-type-clone.md)
+- 面向对象
+  - [原型和原型链](js/js-oop-proto.md)
+  - [原型链和继承（七种继承方式）](js/js-oop-inherit.md)
 - 数组
   - [数组常用 api 总结](js/js-array-api.md)
   - [类数组对象转为数组（四种方法）](js/js-array-like.md)
