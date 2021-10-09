@@ -211,9 +211,10 @@ Function.prototype._bind = function (context, ...argsBound) {
     // 如果使用了 new，即 new fnBound()，this 就是 fnBound 函数的实例
     // self 作为构造函数，如果 self.apply(this) 没有返回值，那么此时返回的就是构造后的 this（new 运算符的原理）
     // self 作为普通函数，直接返回 self.apply(context) 的调用结果
-    return self.apply(this instanceof fnBound ? this : context, argsBound.concat(args))
+    context = this instanceof fnBound ? this : context
+    return self.apply(context, argsBound.concat(args))
   }
-  
+
   // 如果该函数有原型，被绑定函数继承该函数的原型
   if (this.prototype)
     fnBound.prototype = Object.create(this.prototype)
