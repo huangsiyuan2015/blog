@@ -14,10 +14,12 @@
   - [原型链和继承（七种继承方式）](js/js-oop-inherit.md)
 - 数组
   - [数组常用 api 总结](js/js-array-api.md)
-  - [类数组对象转为数组（四种方法）](js/js-array-like.md)
+  - [类数组对象转换和数组拷贝（四种方法）](js/js-array-like.md)
   - [数组去重（三种思路，九种方法）](js/js-array-unique.md)
   - [数组展开（六种方法）](js/js-array-flat.md)
   - [数组排序（十大经典排序算法）](js/js-array-sort.md)
+- 函数
+  - [作用域链和闭包](js/js-func-closure.md)
 - 异步编程
   - [callback 和 Promise](js/js-async-promise.md)
   - [Generator 和 async/await](js/js-async-await.md)
