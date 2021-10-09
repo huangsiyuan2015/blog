@@ -131,16 +131,16 @@ Person.prototype.job // 'frontend'
 ```js
 function _new(func, ...args) {
   // 创建一个空对象，空对象的原型指向构造函数的 prototype 属性
-  const obj = Object.create(func.prototype)
+  const context = Object.create(func.prototype)
   // const obj = Object.setPrototypeOf({}, func.prototype)
 
   // 将空对象传递给构造函数中的 this，执行构造函数内部的代码
-  const result = func.apply(obj, args)
+  const result = func.apply(context, args)
 
   // 如果构造函数的返回值是对象（函数是特殊对象），则返回指定对象，否则返回 this 对象
-  let isObj = (typeof result === 'object' && result !== null) || typeof result === 'function'
+  let flag = (typeof result === 'object' && result !== null) || typeof result === 'function'
 
-  return isObj ? result : obj
+  return flag ? result : context
 }
 
 function Person(name) { this.name = name }
