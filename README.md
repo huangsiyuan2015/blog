@@ -29,6 +29,7 @@
 ### data structure
 
 - [链表](data-structure/LinkedList.js)/[双向链表](data-structure/DoublyLinkedList.js)/[循环链表](data-structure/CircularLinkedList.js)
+- [栈](data-structure/stack.md)
 - [二叉树](data-structure/BinarySearchTree.js)
 - [二叉堆](data-structure/Heap.js)
 
