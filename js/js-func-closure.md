@@ -76,6 +76,77 @@ console.log(localVal) // ReferenceError: localVal is not defined
 console.log(localVal) // "local"
 ```
 
+### 词法作用域 vs 动态作用域
+
+js 采用词法作用域(lexical scoping)，也就是静态作用域。静态作用域是指函数的作用域在函数定义的时候就确定了。
+
+与静态作用域相对的是动态作用域，动态作用域是指函数的作用域在函数调用时才确定。
+
+```js
+var value = 1
+
+function foo() {
+  console.log(value)
+}
+
+function bar() {
+  var value = 2
+  foo()
+}
+
+bar() // 1
+```
+
+假设 js 采用静态作用域，bar() 的输出结果就是 1，因为 foo 函数的作用域在函数定义时就确定了；
+
+假设 js 采用动态作用域，bar() 的输出结果就是 2，因为 foo 函数的作用域在函数调用时才能确定。
+
+```bash
+// bash 使用的就是动态作用域
+value=1
+
+function foo() {
+  echo $value
+}
+
+function bar() {
+  local value=2
+  foo
+}
+
+bar // 2
+```
+
+> 练习题：回答下面代码的输出。
+
+```js
+var scope = "global scope"
+
+function checkscope() {
+  var scope = "local scope"
+  function f() {
+    return scope
+  }
+  return f()
+}
+
+checkscope() // "local scope"
+```
+
+```js
+var scope = "global scope"
+
+function checkscope() {
+  var scope = "local scope"
+  function f() {
+    return scope
+  }
+  return f
+}
+
+checkscope()() // "local scope"
+```
+
 ### 作用域链
 
 作用域是指变量能够被访问到的范围，当访问一个变量时，会先在当前作用域内进行查找；如果当前作用域内没找到，就会向父级作用域进行查找；如果父级作用域内没找到，就会继续向上层的父级作用域进行查找，这样就形成了一条作用域链，作用域链的顶端是全局作用域。
@@ -139,8 +210,6 @@ function f() {
 f()
 outer() // "local"
 ```
-
-#### 静态作用域/词法作用域
 
 > 面试题：下面代码的输出结果是什么？如何修改以获得期望的结果？
 
