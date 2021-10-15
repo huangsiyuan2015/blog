@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>:first-child vs :first-of-type</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      float: left;
+      width: 200px;
+      height: 200px;
+      background: lightblue;
+      text-align: center;
+      line-height: 200px;
+      font-size: 2rem;
+    }
+
+    /* 找到 .container 下的第一个子元素(不论子元素是什么类型)：1 */
+    .container> :first-child {
+      background: lightcoral;
+    }
+
+    /* 找到 .container 下的第一个为 p 元素的子元素：2 */
+    .container>p:first-of-type {
+      background: lightgoldenrodyellow;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="box">1</div>
+    <p class="box">2</p>
+    <p class="box">3</p>
+    <div class="box">4</div>
+  </div>
+</body>
+
+</html>

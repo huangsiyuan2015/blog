@@ -28,6 +28,8 @@
 
 ### css
 
+- 选择器
+  - [选择器类型](css/css-selector-type.md)
 - 布局
   - [盒模型](css/css-layout-box.md)
   - [浮动](css/css-layout-float.md)
