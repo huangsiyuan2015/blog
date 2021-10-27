@@ -30,6 +30,7 @@
 
 - 选择器
   - [选择器类型](css/css-selector-type.md)
+  - [选择器的优先级和计算规则](css/css-selector-priority.md)
 - 布局
   - [盒模型](css/css-layout-box.md)
   - [浮动](css/css-layout-float.md)

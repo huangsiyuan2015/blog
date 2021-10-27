@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>css selector priority</title>
+  <!-- <link rel="stylesheet" href="./lightgreen.css"> -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      float: left;
+      width: 200px;
+      height: 200px;
+    }
+
+    .bg {
+      background-color: lightpink;
+    }
+  </style>
+  <link rel="stylesheet" href="./lightgreen.css">
+</head>
+
+<body>
+  <div class="box bg"></div>
+  <div class='box bg' style="background-color: lightblue;"></div>
+</body>
+
+</html>
