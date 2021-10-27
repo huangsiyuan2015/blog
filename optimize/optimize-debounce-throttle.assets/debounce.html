@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="IE=edge, chrome=1">
+  <title>debounce</title>
+  <style>
+    #container {
+      width: 100%;
+      height: 200px;
+      line-height: 200px;
+      text-align: center;
+      color: #fff;
+      background-color: #444;
+      font-size: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container"></div>
+  <button id="button">cancel debounce</button>
+  <script>
+    var count = 1;
+    var container = document.getElementById('container');
+
+    function getUserAction(event) {
+      container.innerHTML = count++;
+      console.log(this)
+      console.log(event)
+    };
+
+    // 不使用防抖函数
+    // container.onmousemove = getUserAction;
+
+    // 使用防抖函数
+    // container.onmousemove = debounce(getUserAction, 1000, true)
+
+    // 使用取消防抖
+    const button = document.querySelector('#button')
+    const debouncedGetUserAction = debounce(getUserAction, 1000, true)
+    container.onmousemove = debouncedGetUserAction
+    button.onclick = debouncedGetUserAction.cancel
+
+    // 实现防抖函数，第一版
+    // function debounce(func, delay) {
+    //   let timer = null
+
+    //   return function () {
+    //     if (timer) clearTimeout(timer)
+    //     timer = setTimeout(func, delay)
+    //   }
+    // }
+
+    // 第二版：修正 this 指向，防抖函数中的 this 指向 window，应该指向 dom
+    // function debounce(func, delay) {
+    //   let timer = null
+
+    //   return function () {
+    //     if (timer) clearTimeout(timer)
+    //     timer = setTimeout(func.bind(this), delay)
+    //   }
+    // }
+
+    // 第三版：添加 event 参数
+    // function debounce(func, delay) {
+    //   let timer = null
+
+    //   return function (...args) {
+    //     if (timer) clearTimeout(timer)
+    //     timer = setTimeout(func.bind(this, ...args), delay)
+    //   }
+    // }
+
+    // 第四版：防抖函数默认是先等待后执行，添加立即执行参数，实现先执行后等待
+    // function debounce(func, delay, immediate = false) {
+    //   let timer = null
+
+    //   return function (...args) {
+    //     if (timer) clearTimeout(timer)
+
+    //     if (immediate) {
+    //       !timer && func.bind(this, ...args)()
+    //       timer = setTimeout(() => { timer = null }, delay);
+    //     } else {
+    //       timer = setTimeout(func.bind(this, ...args), delay)
+    //     }
+    //   }
+    // }
+
+    // 第五版：防抖函数设置为先执行后等待后，可以取消防抖
+    function debounce(func, delay, immediate = false) {
+      let timer = null
+
+      const debounced = function (...args) {
+        if (timer) clearTimeout(timer)
+
+        if (immediate) {
+          !timer && func.bind(this, ...args)()
+          timer = setTimeout(() => { timer = null }, delay);
+        } else {
+          timer = setTimeout(func.bind(this, ...args), delay)
+        }
+      }
+
+      debounced.cancel = function () {
+        clearTimeout(timer)
+        timer = null
+      }
+
+      return debounced
+    }
+  </script>
+</body>
+
+</html>

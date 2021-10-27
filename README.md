@@ -35,6 +35,10 @@
   - [浮动](css/css-layout-float.md)
   - [定位](css/css-layout-position.md)
 
+### optimize
+
+- [防抖和节流](optimize/optimize-debounce-throttle.md)
+
 ### data structure
 
 - [链表](data-structure/LinkedList.js)/[双向链表](data-structure/DoublyLinkedList.js)/[循环链表](data-structure/CircularLinkedList.js)

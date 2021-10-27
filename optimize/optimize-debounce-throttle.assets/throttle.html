@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="IE=edge, chrome=1">
+  <title>throttle</title>
+  <style>
+    #container {
+      width: 100%;
+      height: 200px;
+      line-height: 200px;
+      text-align: center;
+      color: #fff;
+      background-color: #444;
+      font-size: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container"></div>
+  <button id="button">cancel throttle</button>
+  <script>
+    var count = 1;
+    var container = document.getElementById('container');
+
+    function getUserAction(event) {
+      container.innerHTML = count++;
+      console.log(this)
+      console.log(event)
+    };
+
+    // 不使用节流函数
+    // container.onmousemove = getUserAction;
+
+    // 使用节流函数
+    container.onmousemove = throttle(getUserAction, 3000) // 有头有尾
+    // container.onmousemove = throttle(getUserAction, 3000, { leading: false }) // 无头有尾
+    // container.onmousemove = throttle(getUserAction, 3000, { tailing: false }) // 有头无尾
+
+    // 使用取消节流
+    const button = document.querySelector('#button')
+    const throttledGetUserAction = throttle(getUserAction, 3000)
+    container.onmousemove = throttledGetUserAction
+    button.onclick = throttledGetUserAction.cancel
+
+    // 实现节流函数，第一版：时间戳
+    // function throttle(func, delay) {
+    //   let previous = 0
+
+    //   return function (...args) {
+    //     let now = Date.now()
+    //     if (now - previous > delay) {
+    //       func.apply(this, args)
+    //       previous = now
+    //     }
+    //   }
+    // }
+
+    // 第二版：定时器
+    // function throttle(func, delay) {
+    //   let timer = null
+
+    //   return function (...args) {
+    //     if (timer) return
+    //     timer = setTimeout(() => {
+    //       func.apply(this, args)
+    //       timer = null
+    //     }, delay)
+    //   }
+    // }
+
+    // 第一版和第二版的区别：
+    // 1. 第一种事件会立刻执行，第二种事件会在 n 秒后第一次执行
+    // 2. 第一种事件停止触发后没有办法再执行事件，第二种事件停止触发后依然会再执行一次事件
+
+    // 第三版：第一版和第二版的结合，事件触发立刻执行一次，事件停止触发后再执行一次
+    // function throttle(func, delay) {
+    //   let previous = 0
+    //   let timer = null
+
+    //   return function (...args) {
+    //     let now = Date.now()
+    //     let remaining = delay - (now - previous)
+
+    //     if (remaining <= 0) { // 事件触发，立刻执行一次
+    //       if (timer) { // 停止触发，启动计时器后再次触发
+    //         clearTimeout(timer)
+    //         timer = null
+    //       }
+    //       func.apply(this, args)
+    //       previous = now
+    //     } else if (!timer) { // 停止触发，再执行一次
+    //       timer = setTimeout(() => {
+    //         func.apply(this, args)
+    //         timer = null
+    //         previous = Date.now()
+    //       }, remaining)
+    //     }
+    //   }
+    // }
+
+    // 第四版：提取 option 参数，可以设置有头无尾/无头有尾/有头有尾
+    // function throttle(func, delay, option = {}) {
+    //   let previous = 0
+    //   let timer = null
+
+    //   return function (...args) {
+    //     let now = Date.now()
+    //     if (!previous && option.leading === false) previous = now
+    //     let remaining = delay - (now - previous)
+    //     if (remaining <= 0) {
+    //       if (timer) {
+    //         clearTimeout(timer)
+    //         timer = null
+    //       }
+    //       func.apply(this, args)
+    //       previous = now
+    //     } else if (!timer && option.tailing !== false) {
+    //       timer = setTimeout(() => {
+    //         func.apply(this, args)
+    //         timer = null
+    //         previous = option.leading === false ? 0 : Date.now()
+    //       }, remaining)
+    //     }
+    //   }
+    // }
+
+    // 第五版：设置取消功能
+    function throttle(func, delay, option = {}) {
+      let previous = 0
+      let timer = null
+
+      const throttled = function (...args) {
+        let now = Date.now()
+        if (!previous && option.leading === false) previous = now
+        let remaining = delay - (now - previous)
+        if (remaining <= 0) {
+          if (timer) {
+            clearTimeout(timer)
+            timer = null
+          }
+          func.apply(this, args)
+          previous = now
+        } else if (!timer && option.tailing !== false) {
+          timer = setTimeout(() => {
+            func.apply(this, args)
+            timer = null
+            previous = option.leading === false ? 0 : Date.now()
+          }, remaining)
+        }
+      }
+
+      throttled.cancel = function () {
+        clearTimeout(timer)
+        timer = null
+        previous = 0
+      }
+
+      return throttled
+    }
+  </script>
+</body>
+
+</html>
