@@ -1,8 +1,18 @@
 ## Flexbox layout
 
+flexbox 布局教程：https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout
+
+### flex 容器
+
+<img src="css-layout-flexbox.assets/flex-container.jpeg" alt="flex-container" style="zoom: 67%;" />
+
+### flex 元素
+
+<img src="css-layout-flexbox.assets/flex-item.jpeg" alt="flex-item" style="zoom:67%;" />
+
 ### 最佳实践
 
-flexbox 布局的最佳实践：https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout/Typical_Use_Cases_of_Flexbox
+flexbox 布局最佳实践：https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout/Typical_Use_Cases_of_Flexbox
 
 #### 导航
 
