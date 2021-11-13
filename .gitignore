@@ -1,3 +1,7 @@
-*.pdf
 
+# 忽略文件夹
+/devtool/
+
+# 忽略文件类型
+*.pdf
 *.mhtml
