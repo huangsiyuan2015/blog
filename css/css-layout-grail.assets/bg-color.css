@@ -1,0 +1,15 @@
+.header, .footer {
+  background-color: red;
+}
+
+.center {
+  background-color: orange;
+}
+
+.left {
+  background-color: yellow;
+}
+
+.right {
+  background-color: green;
+}

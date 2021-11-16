@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>双飞翼布局</title>
+  <link rel="stylesheet" href="./bg-color.css">
+  <style>
+    .container {
+      display: flow-root;
+      min-width: 550px;
+    }
+
+    .wrap-center,
+    .left,
+    .right {
+      float: left;
+    }
+
+    .wrap-center {
+      width: 100%;
+    }
+
+    .center {
+      margin-left: 200px;
+      margin-right: 150px;
+    }
+
+    .left {
+      width: 200px;
+      margin-left: -100%;
+    }
+
+    .right {
+      width: 150px;
+      margin-left: -150px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!--  
+    1. 首先设置三栏浮动(中栏包裹层浮动)，父容器清除浮动
+    2. 设置三栏的宽度，中栏包裹层自适应，左右两栏定宽
+    3. 中栏设置 margin，给左右两栏预留出空间
+    4. 左右两栏使用负外边距，浮动到中栏预留出的空间
+    5. 给父容器设置最小宽度(左栏+右栏)，防止布局坏掉
+  -->
+
+  <div class="header">header</div>
+  <div class="container">
+    <div class="wrap-center">
+      <div class="center">center</div>
+    </div>
+    <div class="left">left</div>
+    <div class="right">right</div>
+  </div>
+  <div class="footer">footer</div>
+</body>
+
+</html>

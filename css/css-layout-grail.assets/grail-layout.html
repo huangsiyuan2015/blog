@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>圣杯布局</title>
+  <link rel="stylesheet" href="./bg-color.css">
+  <style>
+    .container {
+      display: flow-root;
+      padding-left: 200px;
+      padding-right: 150px;
+      box-sizing: border-box;
+      min-width: 550px;
+    }
+
+    .center,
+    .left,
+    .right {
+      float: left;
+    }
+
+    .center {
+      width: 100%;
+    }
+
+    .left {
+      width: 200px;
+      margin-left: -100%;
+      position: relative;
+      right: 200px;
+    }
+
+    .right {
+      width: 150px;
+      /* 写法一：使用负外边距 + 相对定位 */
+      /* margin-left: -150px;
+      position: relative;
+      left: 150px; */
+      /* 写法二：只使用负外边距 */
+      margin-right: -150px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!--  
+    1. 首先设置三栏浮动，父容器清除浮动
+    2. 设置三栏的宽度，中栏自适应，左右两栏定宽
+    3. 父容器设置 padding，给左右两栏预留出空间
+    4. 左右两栏使用负外边距，使三栏并且在一行
+    5. 左右两栏使用相对定位，定位到父容器预留出的空间
+    6. 给父容器设置最小宽度(左栏×2+右栏)，防止布局坏掉
+  -->
+
+  <div class="header">header</div>
+  <div class="container">
+    <div class="center">center</div>
+    <div class="left">left</div>
+    <div class="right">right</div>
+  </div>
+  <div class="footer">footer</div>
+</body>
+
+</html>
