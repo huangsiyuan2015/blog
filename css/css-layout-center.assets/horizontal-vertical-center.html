@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>水平垂直居中</title>
+  <link rel="stylesheet" href="./bg-color.css">
+  <style>
+    /* 情况一：元素固定宽高 */
+
+    /* 写法一：绝对定位 + calc() */
+    /* .container {
+      height: 600px;
+      position: relative;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      left: calc(50% - 100px);
+      top: calc(50% - 100px);
+    } */
+
+    /* 写法二：绝对定位 + 负外边距 */
+    /* .container {
+      height: 600px;
+      position: relative;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin: -100px 0 0 -100px;
+    } */
+
+    /* 
+       写法三：绝对定位 + margin: atuo
+       子元素一定要设置宽高，否则会被拉伸填满父容器
+     */
+    /* .container {
+      height: 600px;
+      position: relative;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+    } */
+
+    /* 情况二：元素不定宽高 */
+
+    /* 写法一：绝对定位 + translate() */
+    /* .container {
+      height: 600px;
+      position: relative;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    } */
+
+    /* 写法二：flex 布局 */
+    /* .container {
+      height: 600px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+    } */
+
+    /* 
+       写法三：flex 布局 + margin: auto
+       子元素可以不必设置宽高，内容撑开宽高
+    */
+    /* .container {
+      height: 600px;
+      display: flex;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      margin: auto;
+    } */
+
+    /* 
+       写法四：grid 布局 + margin: auto
+       子元素可以不必设置宽高，内容撑开宽高
+    */
+    /* .container {
+      height: 600px;
+      display: grid;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      margin: auto;
+    } */
+
+    /* 写法五：table-cell 布局 + margin: 0 auto */
+    /* .container {
+      width: 100vw;
+      height: 600px;
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+    } */
+
+    /* 写法六：table-cell 布局 + display: inline-block */
+    .container {
+      width: 100vw;
+      height: 600px;
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    .box {
+      display: inline-block;
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="box">box</div>
+  </div>
+</body>
+
+</html>
