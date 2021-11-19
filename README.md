@@ -57,3 +57,6 @@
 - [二叉树](data-structure/BinarySearchTree.js)
 - [二叉堆](data-structure/Heap.js)
 
+### exam
+
+- [打印九九乘法表](exam/multiply.js)
