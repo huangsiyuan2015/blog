@@ -35,6 +35,7 @@
   - [盒模型](css/css-layout-box.md)
   - [浮动](css/css-layout-float.md)
   - [定位](css/css-layout-position.md)
+  - [块级格式化上下文（BFC: Block Formatting Context）](css/css-layout-bfc.md)
   - [弹性盒子布局（Flexbox Layout）](css/css-layout-flexbox.md)
   - 网格布局（Grid Layout）
   - [元素水平垂直居中（两种情况，九种方法）](css/css-layout-center.md)

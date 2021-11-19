@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BFC 特性的应用</title>
+  <style>
+    /* 清除浮动 */
+    /* .container {
+      display: flow-root;
+      border: solid 2px #000;
+    }
+
+    .box {
+      float: left;
+      width: 200px;
+      height: 200px;
+      background-color: #eee;
+    } */
+
+    /* 防止元素被浮动元素覆盖 */
+    .float {
+      float: left;
+      width: 150px;
+      height: 150px;
+      margin-right: 40px;
+      background-color: lightblue;
+    }
+
+    .box {
+      display: flow-root;
+      border: solid 2px #000;
+    }
+
+    /* 解决外边距合并 */
+    /* .container {
+      display: flow-root;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      background-color: lightblue;
+      margin: 100px;
+    } */
+  </style>
+</head>
+
+<body>
+  <!-- 清除浮动 -->
+  <!-- <div class="container">
+    <div class="box"></div>
+  </div> -->
+
+  <!-- 防止元素被浮动元素覆盖 -->
+  <div class="container">
+    <div class="float"></div>
+    <div class="box">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus delectus eveniet quidem harum amet
+      quas distinctio quia optio earum hic odio asperiores a dignissimos eius laboriosam, quod nisi voluptatem adipisci!
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur quo nisi minus tempora neque laudantium?
+      Obcaecati a optio sunt quis, aut amet nulla similique architecto nobis, harum commodi, sit perferendis? Lorem
+      ipsum dolor, sit amet consectetur adipisicing elit. Dolor dolorum eaque aperiam odit similique, soluta mollitia
+      non nobis velit nesciunt! Quas atque magni deleniti hic unde, eius dicta. Veniam, officia? Lorem ipsum dolor sit
+      amet consectetur adipisicing elit. Ab sequi ex quas, ratione ipsam modi impedit molestiae beatae ea, cupiditate
+      rerum odit! Numquam ea voluptatibus excepturi reiciendis veritatis, quae ipsum? Lorem ipsum dolor, sit amet
+      consectetur adipisicing elit. Quo esse rem explicabo eius nesciunt exercitationem facilis expedita quos iusto
+      commodi. Ipsam libero explicabo unde minima debitis exercitationem eos architecto doloribus! Lorem, ipsum dolor
+      sit amet consectetur adipisicing elit. Illum aliquam, voluptatem, soluta harum enim itaque saepe perspiciatis
+      praesentium iste modi nostrum, eius accusamus ullam iure voluptas deserunt unde id. Quis!
+    </div>
+  </div>
+
+  <!-- 解决外边距合并 -->
+  <!-- <div class="container">
+    <div class="box"></div>
+  </div>
+  <div class="container">
+    <div class="box"></div>
+  </div> -->
+</body>
+
+</html>
