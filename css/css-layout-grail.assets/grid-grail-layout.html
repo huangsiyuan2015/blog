@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>grid 实现圣杯布局</title>
+  <link rel="stylesheet" href="./bg-color.css">
+  <style>
+    /* 方案一：dom 结构相同 */
+    /* .container {
+      display: grid;
+      grid-template-columns: 200px 1fr 150px;
+      grid-template-rows: 1fr;
+    }
+
+    .left {
+      order: -1;
+    } */
+
+    /* 方案二：dom 结构不同 */
+
+    /* 写法一：网格线 */
+    /* .container {
+      display: grid;
+      grid-template-columns: 200px 1fr 150px;
+      grid-template-rows: repeat(3, 1fr);
+    }
+
+    .header {
+      grid-column: 1/4;
+      grid-row: 1/2;
+    }
+
+    .footer {
+      grid-column: 1/4;
+      grid-row: 3/4;
+    }
+
+    .left {
+      order: -1;
+    } */
+
+    /* 写法二：网格区域 */
+    .container {
+      display: grid;
+      grid-template-columns: 200px 1fr 150px;
+      grid-template-rows: repeat(3, 1fr);
+      grid-template-areas:
+        'header header header'
+        'left center right'
+        'footer footer footer'
+      ;
+    }
+
+    .header {
+      grid-area: header;
+    }
+
+    .footer {
+      grid-area: footer;
+    }
+
+    .left {
+      grid-area: left;
+    }
+
+    .right {
+      grid-area: right;
+    }
+
+    .center {
+      grid-area: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 方案一：dom 结构相同 -->
+  <!-- <div class="header">header</div>
+  <div class="container">
+    <div class="center">center</div>
+    <div class="left">left</div>
+    <div class="right">right</div>
+  </div>
+  <div class="footer">footer</div> -->
+
+  <!-- 方案二：dom 结构不同 -->
+  <div class="container">
+    <div class="header">header</div>
+    <div class="center">center</div>
+    <div class="left">left</div>
+    <div class="right">right</div>
+    <div class="footer">footer</div>
+  </div>
+</body>
+
+</html>
