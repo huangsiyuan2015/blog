@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Context 的用法</title>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <!-- Context 的使用方法 -->
+  <script type="text/babel" src="theme-context.js"></script>
+  <script type="text/babel" src="themed-button.js"></script>
+  <script type="text/babel" src="app.js"></script>
+  <script type="text/babel">
+    ReactDOM.render(
+      <App />,
+      document.getElementById('root')
+    )
+  </script>
+
+  <!-- 在嵌套组件中更新 Context -->
+  <!-- <script type="text/babel" src="theme-context.js"></script>
+  <script type="text/babel" src="theme-toggler-button.js"></script>
+  <script type="text/babel">
+    ReactDOM.render(
+      <App />,
+      document.getElementById('root')
+    )
+  </script> -->
+
+  <!-- 消费多个 Context -->
+  <!-- <script type="text/babel" src="many-context.js"></script>
+  <script type="text/babel">
+    ReactDOM.render(
+      <App />,
+      document.getElementById('root')
+    )
+  </script> -->
+</body>
+
+</html>
