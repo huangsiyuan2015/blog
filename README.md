@@ -71,4 +71,5 @@
 ### 编程题
 
 - [打印九九乘法表](exam/multiply.js)
-- [字符串翻转](exam/string-reverse.js)
+- [实现字符串翻转](exam/string-reverse.js)
+- [实现千分位分隔符](exam/thousand-seperator.js)
