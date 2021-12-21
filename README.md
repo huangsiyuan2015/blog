@@ -57,7 +57,7 @@
 - redux/react-redux
 - react-query
 
-### optimize
+### 性能优化
 
 - [防抖和节流](optimize/optimize-debounce-throttle.md)
 
@@ -68,6 +68,7 @@
 - [二叉树](data-structure/BinarySearchTree.js)
 - [二叉堆](data-structure/Heap.js)
 
-### exam
+### 编程题
 
 - [打印九九乘法表](exam/multiply.js)
+- [字符串翻转](exam/string-reverse.js)
