@@ -74,3 +74,4 @@
 - [实现字符串翻转](exam/string-reverse.js)
 - [实现千分位分隔符](exam/thousand-seperator.js)
 - [判断是否为回文数](exam/palindrome.js)
+- [判断是否为素数/获取 n 以内的所有素数](exam/prime.js)
