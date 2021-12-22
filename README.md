@@ -73,3 +73,4 @@
 - [打印九九乘法表](exam/multiply.js)
 - [实现字符串翻转](exam/string-reverse.js)
 - [实现千分位分隔符](exam/thousand-seperator.js)
+- [判断是否为回文数](exam/palindrome.js)
