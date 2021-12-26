@@ -12,8 +12,10 @@ Array.prototype._filter = function (callback, context = window) {
   const result = [];
 
   if (typeof callback === "function") {
-    for (let i = 0; i < arr.length; i++) {
-      callback.apply(context, [arr[i], i, arr]) && result.push(arr[i]);
+    for (let i = 0, j = 0; i < arr.length; i++) {
+      if (callback.apply(context, [arr[i], i, arr])) {
+        result[j++] = arr[i];
+      }
     }
   } else {
     throw new TypeError(`${callback} is not a function`);
