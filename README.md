@@ -81,6 +81,7 @@
   - [filter](source/filter.js)
   - [some](source/some.js)
   - [every](source/every.js)
+  - [reduce](source/reduce.js)
 
 ### 编程题
 
