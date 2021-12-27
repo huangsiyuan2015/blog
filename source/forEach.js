@@ -4,15 +4,18 @@ arr.forEach(function (value, index, array) {
   console.log(value, index, array, this);
 }, {});
 
-Array.prototype._forEach = function (callback, context = window) {
-  const arr = this;
+Array.prototype._forEach = function () {
+  var arr = this;
+  var args = Array.prototype.slice.call(arguments);
+  var callback = args[0];
+  var context = args[1] || window;
 
-  if (typeof callback === "function") {
-    for (let i = 0; i < arr.length; i++) {
-      callback.apply(context, [arr[i], i, arr]);
-    }
-  } else {
+  if (typeof callback !== "function") {
     throw new TypeError(`${callback} is not a function`);
+  }
+
+  for (var i = 0; i < arr.length; i++) {
+    callback.apply(context, [arr[i], i, arr]);
   }
 };
 
