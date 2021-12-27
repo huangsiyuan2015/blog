@@ -7,9 +7,15 @@ let result = arr.reduce(function (pre, cur, index, array) {
 
 console.log(result);
 
-Array.prototype._reduce = function (callback, initValue) {
-  let arr = this;
-  let acc, i;
+Array.prototype._reduce = function () {
+  var arr = this;
+  var callback = arguments[0];
+  var initValue = arguments[1];
+  var acc, i;
+
+  if (typeof callback !== "function") {
+    throw new TypeError(`${callback} is not a function`);
+  }
 
   // 注意：0 和 空串也是合法的初始值
   if (initValue || initValue === 0 || initValue === "") {
