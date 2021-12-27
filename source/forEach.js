@@ -6,9 +6,8 @@ arr.forEach(function (value, index, array) {
 
 Array.prototype._forEach = function () {
   var arr = this;
-  var args = Array.prototype.slice.call(arguments);
-  var callback = args[0];
-  var context = args[1] || window;
+  var callback = arguments[0];
+  var context = arguments[1] || window;
 
   if (typeof callback !== "function") {
     throw new TypeError(`${callback} is not a function`);

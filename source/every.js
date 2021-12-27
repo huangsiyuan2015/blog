@@ -9,9 +9,8 @@ console.log(result);
 
 Array.prototype._every = function () {
   var arr = this;
-  var args = Array.prototype.slice.call(arguments);
-  var callback = args[0];
-  var context = args[1] || window;
+  var callback = arguments[0];
+  var context = arguments[1] || window;
   var result = true;
 
   if (typeof callback !== "function") {
