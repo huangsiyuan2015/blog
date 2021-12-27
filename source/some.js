@@ -7,19 +7,24 @@ let result = arr.some(function (value, index, array) {
 
 console.log(result);
 
-Array.prototype._some = function (callback, context = window) {
-  const arr = this;
-  let result = false;
+Array.prototype._some = function () {
+  var arr = this;
+  var args = Array.prototype.slice.call(arguments);
+  var callback = args[0];
+  var context = args[1] || window;
+  var result = false;
 
-  if (typeof callback === "function") {
-    for (let i = 0; i < arr.length; i++) {
-      if (callback.apply(context, [arr[i], i, arr])) {
-        result = true;
-        break;
-      }
-    }
-  } else {
+  if (typeof callback !== "function") {
     throw new TypeError(`${callback} is not a function`);
+  }
+
+  for (var i = 0; i < arr.length; i++) {
+    var flag = callback.apply(context, [arr[i], i, arr]);
+
+    if (flag) {
+      result = true;
+      break;
+    }
   }
 
   return result;
