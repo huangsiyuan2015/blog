@@ -7,16 +7,19 @@ let result = arr.map(function (value, index, array) {
 
 console.log(result);
 
-Array.prototype._map = function (callback, context = window) {
-  const arr = this;
-  const result = [];
+Array.prototype._map = function () {
+  var arr = this;
+  var args = Array.prototype.slice.call(arguments);
+  var callback = args[0];
+  var context = args[1] || window;
+  var result = [];
 
-  if (typeof callback === "function") {
-    for (let i = 0; i < arr.length; i++) {
-      result[i] = callback.apply(context, [arr[i], i, arr]);
-    }
-  } else {
+  if (typeof callback !== "function") {
     throw new TypeError(`${callback} is not a function`);
+  }
+
+  for (var i = 0; i < arr.length; i++) {
+    result[i] = callback.apply(context, [arr[i], i, arr]);
   }
 
   return result;
