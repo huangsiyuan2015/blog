@@ -12,9 +12,15 @@ Function.prototype.new = function () {
   var constructor = this;
   var args = Array.prototype.slice.call(arguments);
 
-  var f = function () {};
-  f.prototype = constructor.prototype;
-  var ctx = new f();
+  // Object.create() 是 es5 语法
+  var ctx = Object.create(constructor.prototype);
+
+  // Object.setPrototypeOf() 是 es6 语法
+  // var ctx = Object.setPrototypeOf({}, constructor.prototype);
+
+  // var f = function () {};
+  // f.prototype = constructor.prototype;
+  // var ctx = new f();
 
   var res = constructor.apply(ctx, args);
   var isObj =
