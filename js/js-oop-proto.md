@@ -55,15 +55,18 @@ typeof Person // "function"
 typeof Person.prototype // "object"
 ```
 
-并不是所有的函数都具有 prototype 属性，比如常见的 call 方法：
+并不是所有的函数都具有 prototype 属性，比如常见的 call 方法，以及 bind 方法返回的函数都没有 prototype 属性：                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 
 ```js
 function Person(name) {
   this.name = name
 }
-
 typeof Person.call // "function"
 'prototype' in Person.call // false
+
+let PersonBound = Person.bind({})
+typeof PersonBound // "function"
+'prototype' in PersonBound // false
 ```
 
 当函数作为**构造函数**被调用时，函数的 prototype 属性会作为实例对象的原型进行构造，从而使得实例对象继承原型对象上的属性和方法。
@@ -177,7 +180,17 @@ Object.getPrototypeOf(new Person) === Person.prototype // true
 Object.getPrototypeOf(new Object) === Object.prototype // true
 ```
 
-原型链之间的关系，如下图所示：
+原型链之间的关系，如下图所示（图中一共有4条原型链）：
 
 ![proto-chain-func](js-oop-inherit.assets/proto-chain-func.png)
+
+> 面试题：判断下面代码的输出结果。
+
+```js
+function Person() {}
+
+Person.__proto__ === Function.prototype // true
+Object.__proto__ === Function.prototype // true
+Function.__proto__ === Function.prototype // true
+```
 
