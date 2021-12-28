@@ -41,6 +41,7 @@
   - 网格布局（Grid Layout）
   - [元素水平垂直居中（两种情况，九种方法）](css/css-layout-center.md)
   - [圣杯布局/双飞翼布局](css/css-layout-grail.md)
+- 样式
 
 ### html
 
@@ -75,19 +76,18 @@
 
 ### 手写源码
 
-- 手写 [new](source/new.js) 运算符
-- 手写 [iterator](source/iterator.js) 接口
-- 手写函数修改 this 的方法：
-  - [call](source/call.js)
-  - [apply](source/apply.js)
-  - [bind](source/bind.js)
-- 手写数组的遍历方法：
-  - [forEach](source/forEach.js)
-  - [map](source/map.js)
-  - [filter](source/filter.js)
-  - [some](source/some.js)
-  - [every](source/every.js)
-  - [reduce](source/reduce.js)
+- [instanceof](source/instanceof.js)
+- [new](source/new.js)
+- [iterator](source/iterator.js)
+- [call](source/call.js)
+- [apply](source/apply.js)
+- [bind](source/bind.js)
+- [forEach](source/forEach.js)
+- [map](source/map.js)
+- [filter](source/filter.js)
+- [some](source/some.js)
+- [every](source/every.js)
+- [reduce](source/reduce.js)
 
 ### 编程题
 
