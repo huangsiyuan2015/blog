@@ -75,6 +75,12 @@
 
 ### 手写源码
 
+- 手写 [new](source/new.js) 运算符
+- 手写 [iterator](source/iterator.js) 接口
+- 手写函数修改 this 的方法：
+  - [call](source/call.js)
+  - [apply](source/apply.js)
+  - [bind](source/bind.js)
 - 手写数组的遍历方法：
   - [forEach](source/forEach.js)
   - [map](source/map.js)
