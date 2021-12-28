@@ -194,3 +194,44 @@ Object.__proto__ === Function.prototype // true
 Function.__proto__ === Function.prototype // true
 ```
 
+> 面试题：instanceof 运算符的原理是什么？手写 instanceof 运算符
+
+```js
+// instanceof 运算符判断原理：
+// 判断右边构造函数的 prototype 属性是否在左边实例对象的原型链上
+Object.prototype._instanceof = function () {
+  var instance = this;
+  var constructor = arguments[0];
+
+  var proto = Object.getPrototypeOf(instance);
+  while (proto) {
+    if (proto === constructor.prototype) {
+      return true;
+    }
+    proto = Object.getPrototypeOf(proto);
+  }
+  return false;
+};
+
+class Parent {}
+class Child extends Parent {}
+
+const child = new Child();
+child instanceof Child // true
+child instanceof Parent // true
+child._instanceof(Child) // true
+child._instanceof(Parent) // true
+child._instanceof(Object) // true
+```
+
+> 面试题：判断下面代码的输出结果。
+
+```js
+function Foo() {}
+
+Object instanceof Object // true
+Foo instanceof Foo // false
+Foo instanceof Object // true
+Foo instanceof Function // true
+```
+
