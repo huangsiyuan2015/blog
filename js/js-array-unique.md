@@ -13,8 +13,7 @@ function unique(array) {
     for (let j = i + 1; j < array.length; j++) {
       if (array[i] === array[j]) {
         // splice 会改变原数组，删掉一个元素后，后一个元素会占用前一个元素的下标
-        array.splice(j, 1)
-        j--
+        array.splice(j--, 1)
       }
     }
   }
@@ -38,8 +37,7 @@ function unique(array) {
   // 对元素进行两两比较，如果相同就删掉一个
   for (let i = 0; i < array.length; i++) {
     if (array[i] === array[i + 1]) {
-      array.splice(i, 1)
-      i--
+      array.splice(i--, 1)
     }
   }
 
@@ -108,12 +106,17 @@ let array = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5]
 
 function unique(array) {
 
-  return array.reduce((pre, cur) => {
-    if (!pre.includes(cur)) {
-      pre.push(cur)
-    }
-    return pre
-  }, [])
+  // return array.reduce((pre, cur) => {
+  //   if (!pre.includes(cur)) {
+  //     pre.push(cur)
+  //   }
+  //   return pre
+  // }, [])
+
+  return array.reduce(
+    (pre, cur) => (pre.includes(cur) ? pre : pre.concat(cur)),
+    []
+  )
 }
 
 unique(array) // [ 1, 2, 3, 4, 5 ]
@@ -177,7 +180,7 @@ function unique(array) {
     // }
 
     // 也可以直接利用 map 键值不重复的特性
-    map.set(elem, 'unique')
+    map.set(elem, elem)
   })
 
   return [...map.keys()]
