@@ -26,6 +26,7 @@ Function.prototype._call = function () {
   ctx[key] = this;
 
   // 使用 eval 将数组转为参数列表
+  // 注意：传递字符串参数时需要使用两层引号，否则字符串会被解析成变量
   var res = eval("ctx[key](" + args + ")");
   delete ctx[key];
 
@@ -33,3 +34,4 @@ Function.prototype._call = function () {
 };
 
 fn._call({}, 1, 2);
+fn._call({}, '"hello"', '"world"');
