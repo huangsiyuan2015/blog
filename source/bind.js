@@ -32,6 +32,14 @@ Function.prototype._bind = function () {
   var ctx = arguments[0] || window;
   var args = Array.prototype.slice.call(arguments, 1);
 
+  if (ctx === null || ctx === undefined) {
+    ctx = window;
+  }
+
+  if (ctx !== "object") {
+    ctx = Object(ctx);
+  }
+
   var target = function () {
     var innerArgs = Array.prototype.slice.call(arguments);
     return fn.apply(ctx, args.concat(innerArgs));
