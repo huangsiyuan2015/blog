@@ -82,6 +82,7 @@
 - [call](source/call.js)
 - [apply](source/apply.js)
 - [bind](source/bind.js)
+- [curry](source/curry.js)
 - [forEach](source/forEach.js)
 - [map](source/map.js)
 - [filter](source/filter.js)

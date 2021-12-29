@@ -1,33 +1,23 @@
-function add(a, b, c) {
-  return a + b + c;
+function curry(fn, ...args) {
+  return args.length >= fn.length
+    ? fn(...args)
+    : (...innerArgs) => curry(fn, ...args, ...innerArgs);
 }
 
-console.log(add(1, 2, 3));
-// console.log(add(1)(2)(3));
-
-function curry() {
-  var fn = arguments[0];
-  var args = [].slice.call(arguments, 1);
-  var length = fn.length; // fn 的形参个数
-
-  var target = function () {
-    args.push(...arguments);
-    if (args.length < length) {
-      return target;
-    } else {
-      return fn.apply(this, args);
-    }
-  };
-
-  return target;
+function add(a, b, c) {
+  return a + b + c;
 }
 
 var addCurry = curry(add);
 // console.log(addCurry(1)(2)(3));
 // console.log(addCurry(1)(2, 3));
 // console.log(addCurry(1, 2)(3));
-// console.log(addCurry()()(1)(2)(3));
 
-var oneAddCurry = curry(add, 1);
+oneAddCurry = curry(add, 1);
 // console.log(oneAddCurry(2)(3));
 console.log(oneAddCurry(2, 3));
+
+// 可以直接使用箭头函数实现 add(1)(2)(3)
+// 缺陷：不能随意传递参数的个数，参数只能一个一个的传
+var add = (x) => (y) => (z) => x + y + z;
+console.log(add(1)(2)(3));
