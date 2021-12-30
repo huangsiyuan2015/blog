@@ -1,12 +1,23 @@
 ## 数组去重
 
+```js
+// 随机数数组生成函数
+function randoms() {
+  const result = [];
+  for (let i = 0; i < 10; i++) {
+    // 生成 10 个 [0, 5) 的随机整数
+    result.push((Math.random() * 5) | 0);
+  }
+  console.log(result);
+  return result;
+}
+```
+
 ### 思路一：比较相等，删掉重复元素
 
 #### 双循环 + splice()
 
 ```js
-let array = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5]
-
 function unique(array) {
 
   for (let i = 0; i < array.length; i++) {
@@ -21,14 +32,12 @@ function unique(array) {
   return array
 }
 
-unique(array) // [ 1, 2, 3, 4, 5 ]
+unique(randoms())
 ```
 
 #### 排序 + 单循环 + splice()
 
 ```js
-let array = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5]
-
 function unique(array) {
 
   // 对 array 进行升序排序，重复元素相邻排列
@@ -44,7 +53,7 @@ function unique(array) {
   return array
 }
 
-unique(array) // [ 1, 2, 3, 4, 5 ]
+unique(randoms())
 ```
 
 ### 思路二：加入新数组时过滤
@@ -52,8 +61,6 @@ unique(array) // [ 1, 2, 3, 4, 5 ]
 #### forEach 遍历 + indexOf()
 
 ```js
-let array = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5]
-
 function unique(array) {
 
   // 创建一个新数组，用来保存去重后的数组
@@ -71,14 +78,12 @@ function unique(array) {
   return result
 }
 
-unique(array) // [ 1, 2, 3, 4, 5 ]
+unique(randoms())
 ```
 
 #### forEach 遍历 + includes()
 
 ```js
-let array = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5]
-
 function unique(array) {
 
   // 创建一个新数组，用来保存去重后的数组
@@ -96,14 +101,12 @@ function unique(array) {
   return result
 }
 
-unique(array) // [ 1, 2, 3, 4, 5 ]
+unique(randoms())
 ```
 
 #### reduce 遍历 + includes()
 
 ```js
-let array = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5]
-
 function unique(array) {
 
   // return array.reduce((pre, cur) => {
@@ -119,14 +122,12 @@ function unique(array) {
   )
 }
 
-unique(array) // [ 1, 2, 3, 4, 5 ]
+unique(randoms())
 ```
 
 #### filter 遍历 + indexOf()
 
 ```js
-let array = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5]
-
 function unique(array) {
 
   return array.filter((elem, index) => {
@@ -136,7 +137,7 @@ function unique(array) {
   })
 }
 
-unique(array) // [ 1, 2, 3, 4, 5 ]
+unique(randoms())
 ```
 
 ### 思路三：利用特殊数据的不重复性
@@ -144,8 +145,6 @@ unique(array) // [ 1, 2, 3, 4, 5 ]
 #### set 数据结构
 
 ```js
-let array = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5]
-
 function unique(array) {
 
   // 创建一个 set 数据结构，set 中的值都是唯一的
@@ -160,14 +159,12 @@ function unique(array) {
   return [...set]
 }
 
-unique(array) // [ 1, 2, 3, 4, 5 ]
+unique(randoms())
 ```
 
 #### map 数据结构
 
 ```js
-let array = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5]
-
 function unique(array) {
 
   // 创建一个 map 数据结构
@@ -186,7 +183,7 @@ function unique(array) {
   return [...map.keys()]
 }
 
-unique(array) // [ 1, 2, 3, 4, 5 ]
+unique(randoms())
 ```
 
 #### obj 数据结构
@@ -212,7 +209,7 @@ function unique(array) {
   return Object.values(obj)
 }
 
-unique(array) // [ 1, 2, 3, 4, 5 ]
+unique(randoms())
 ```
 
 
