@@ -286,7 +286,7 @@ Number.NEGATIVE_INFINITY === -Infinity // true
 
 ### 浮点数运算
 
-<img src="js-type-number.assets/float.png" alt="float"  />
+<img src="js-type-number.assets/float-operation.png" alt="float"  />
 
 ### 参考链接
 
