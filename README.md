@@ -6,6 +6,7 @@
 
 - 数据类型
   - [数据类型和类型转换](js/js-type.md)
+  - [浮点数精度问题（0.1 + 0.2 !== 0.3）](js/js-type-number.md)
   - [对象的浅拷贝和深拷贝](js/js-type-clone.md)
 - 面向对象
   - [创建对象的方法和 new 运算符](js/js-oop-object.md)
@@ -25,6 +26,20 @@
   - [Generator 和 async/await](js/js-async-await.md)
   - [手写 EventEmitter（发布订阅模式）](js/js-async-event.md)
   - [手写 Promise 以及相关 api](js/js-async-promise-aplus.md)
+- 手写源码
+  - [instanceof](source/instanceof.js)
+  - [new](source/new.js)
+  - [iterator](source/iterator.js)
+  - [call](source/call.js)
+  - [apply](source/apply.js)
+  - [bind](source/bind.js)
+  - [curry](source/curry.js)
+  - [forEach](source/forEach.js)
+  - [map](source/map.js)
+  - [filter](source/filter.js)
+  - [some](source/some.js)
+  - [every](source/every.js)
+  - [reduce](source/reduce.js)
 
 ### css
 
@@ -67,28 +82,12 @@
 
 - [防抖和节流](optimize/optimize-debounce-throttle.md)
 
-### data structure
+### 数据结构
 
 - [链表](data-structure/LinkedList.js)/[双向链表](data-structure/DoublyLinkedList.js)/[循环链表](data-structure/CircularLinkedList.js)
 - [栈](data-structure/stack.md)
 - [二叉树](data-structure/BinarySearchTree.js)
 - [二叉堆](data-structure/Heap.js)
-
-### 手写源码
-
-- [instanceof](source/instanceof.js)
-- [new](source/new.js)
-- [iterator](source/iterator.js)
-- [call](source/call.js)
-- [apply](source/apply.js)
-- [bind](source/bind.js)
-- [curry](source/curry.js)
-- [forEach](source/forEach.js)
-- [map](source/map.js)
-- [filter](source/filter.js)
-- [some](source/some.js)
-- [every](source/every.js)
-- [reduce](source/reduce.js)
 
 ### 编程题
 
