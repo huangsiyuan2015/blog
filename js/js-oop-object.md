@@ -164,3 +164,50 @@ console.log(p1.hosts) // undefined
 console.log(p2.hosts) // Uncaught TypeError: can't access property "hosts", p2 is undefined
 ```
 
+> 面试题：回答下面代码输出。
+
+```js
+// 构造函数
+function Foo() {
+  getName = function () {
+    console.log(1);
+  };
+  return this;
+}
+
+// 静态方法
+Foo.getName = function () {
+  console.log(2);
+};
+
+// 实例方法
+Foo.prototype.getName = function () {
+  console.log(3);
+};
+
+var getName = function () {
+  console.log(4);
+};
+
+function getName() {
+  console.log(5);
+}
+
+console.log(Foo()); // window
+Foo.getName(); // 2
+getName(); // 1
+Foo().getName(); // 1
+getName(); // 1
+
+// new 的优先级大于函数调用 ()
+// 虽然 new 构造函数可以不加 ()，但是 new 构造函数会优先结合一个 ()
+new Foo.getName(); // 2
+// new (Foo.getName)() => 打印 2，返回 {}
+new Foo().getName(); // 3
+// 1. new Foo() => foo
+// 2. foo.getName() => 打印 3
+new new Foo().getName(); // 3
+// 1. new Foo() => foo
+// 2. new (foo.getName)() => 打印 3，返回 {}
+```
+
