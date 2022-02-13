@@ -2,113 +2,219 @@
 
 数组展开也叫数组扁平化处理，即将一个多维嵌套数组展开成一个一维数组。
 
+### flat()
+
+- 默认展开 1 层
+- 展开层数小于 1 返回原数组
+- 展开层数等于 Infinity 全部展开
+- 会过滤数组空位
+
+```js
+const animals = ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
+
+flat(animals, 0) // ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
+flat(animals) // [ '🐷', '🐶', '🐂', '🐎', [ '🐑', [ '🐲' ] ], '🐛' ]
+flat(animals, 2) // [ '🐷', '🐶', '🐂', '🐎', '🐑', [ '🐲' ], '🐛' ]
+flat(animals, Infinity) // ['🐷', '🐶', '🐂', '🐎', '🐑', '🐲', '🐛']
+```
+
 ### forEach 遍历 + 递归
 
 ```js
-let array = [1, [2, [3, 4, 5]]]
+const animals = ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
 
-function flatten(array) {
-
-  // 创建一个数组，用来保存展开的元素
+function flat(arr) {
   let result = []
 
-  array.forEach((elem) => {
-    // 遍历原数组，判断元素是否为数组，是的话就递归调用
-    if (Array.isArray(elem)) {
-      result.push(...flatten(elem))
-      // result = result.concat(flatten(elem))
-    } else {
-      result.push(elem)
-    }
-  })
+  arr.forEach((elem) =>
+    // 使用 ... 展开一层
+    // Array.isArray(elem) ? result.push(...flat(elem)) : result.push(elem)
+
+    // 使用 concat 展开一层
+    // Array.isArray(elem)
+    //   ? (result = result.concat(flat(elem)))
+    //   : result.push(elem)
+
+    // 使用 apply 展开一层
+    Array.isArray(elem) ? [].push.apply(result, flat(elem)) : result.push(elem)
+  )
 
   return result
 }
 
-flatten(array) // [ 1, 2, 3, 4, 5 ]
+flat(animals) // ['🐷', '🐶', '🐂', '🐎', '🐑', '🐲', '🐛']
+```
+
+#### 控制展开层数
+
+```js
+const animals = ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
+
+function flat(arr, dpt = 1) {
+  if (dpt > 0) {
+    let result = []
+
+    arr.forEach((elem) =>
+      // 使用 ... 展开一层
+      // Array.isArray(elem)
+      //   ? result.push(...flat(elem, dpt - 1))
+      //   : result.push(elem)
+
+      // 使用 concat 展开一层
+      // Array.isArray(elem)
+      //   ? (result = result.concat(flat(elem, dpt - 1)))
+      //   : result.push(elem)
+
+      // 使用 apply 展开一层
+      Array.isArray(elem)
+        ? [].push.apply(result, flat(elem, dpt - 1))
+        : result.push(elem)
+    )
+
+    return result
+  }
+
+  return arr.slice()
+}
+
+flat(animals, 0) // ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
+flat(animals) // [ '🐷', '🐶', '🐂', '🐎', [ '🐑', [ '🐲' ] ], '🐛' ]
+flat(animals, 2) // [ '🐷', '🐶', '🐂', '🐎', '🐑', [ '🐲' ], '🐛' ]
+flat(animals, Infinity) // ['🐷', '🐶', '🐂', '🐎', '🐑', '🐲', '🐛']
 ```
 
 ### reduce 遍历 + 递归
 
 ```js
-let array = [1, [2, [3, 4, 5]]]
+const animals = ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
 
-function flatten(array) {
-
-  return array.reduce((pre, cur) => {
-    // 注意要返回合并后的数组
-    return pre.concat(Array.isArray(cur) ? flatten(cur) : cur)
-  }, [])
+function flat(arr) {
+  return arr.reduce(
+    (pre, cur) => pre.concat(Array.isArray(cur) ? flat(cur) : cur),
+    []
+  )
 }
 
-flatten(array) // [ 1, 2, 3, 4, 5 ]
+flat(animals) // ['🐷', '🐶', '🐂', '🐎', '🐑', '🐲', '🐛']
+```
+
+#### 控制展开层数
+
+```js
+const animals = ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
+
+function flat(arr, dpt = 1) {
+  return dpt > 0
+    ? arr.reduce(
+        (pre, cur) => pre.concat(Array.isArray(cur) ? flat(cur, dpt - 1) : cur),
+        []
+      )
+    : arr.slice()
+}
+
+flat(animals, 0) // ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
+flat(animals) // [ '🐷', '🐶', '🐂', '🐎', [ '🐑', [ '🐲' ] ], '🐛' ]
+flat(animals, 2) // [ '🐷', '🐶', '🐂', '🐎', '🐑', [ '🐲' ], '🐛' ]
+flat(animals, Infinity) // ['🐷', '🐶', '🐂', '🐎', '🐑', '🐲', '🐛']
 ```
 
 ### some() + 展开运算符
 
 ```js
-let array = [1, [2, [3, 4, 5]]]
+const animals = ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
 
-function flatten(array) {
+function flat(arr) {
+  let clone = arr.slice()
 
-  while (array.some((elem => Array.isArray(elem)))) {
-    // 注意要返回展开后的数组，否则会陷入死循环
-    array = [].concat(...array)
+  while (clone.some((elem) => Array.isArray(elem))) {
+    clone = [].concat(...clone)
   }
 
-  return array
+  return clone
 }
 
-flatten(array) // [ 1, 2, 3, 4, 5 ]
+flat(animals) // ['🐷', '🐶', '🐂', '🐎', '🐑', '🐲', '🐛']
 ```
 
-### flat()
+#### 控制展开层数
 
 ```js
-let array = [1, [2, [3, 4, 5]]]
+const animals = ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
 
-function flatten(array) {
+function flat(arr, dpt = 1) {
+  let clone = arr.slice()
 
-  // flat 接收一个参数表示要展开的层数
-  // 对于不确定的层数可以使用 Infinity
-  return array.flat(Infinity)
+  while (dpt > 0) {
+    if (dpt === Infinity && clone.every((elem) => !Array.isArray(elem))) break
+    clone = [].concat(...clone)
+    dpt--
+  }
+
+  return clone
 }
 
-flatten(array) // [ 1, 2, 3, 4, 5 ]
+flat(animals, 0) // ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
+flat(animals) // [ '🐷', '🐶', '🐂', '🐎', [ '🐑', [ '🐲' ] ], '🐛' ]
+flat(animals, 2) // [ '🐷', '🐶', '🐂', '🐎', '🐑', [ '🐲' ], '🐛' ]
+flat(animals, Infinity) // ['🐷', '🐶', '🐂', '🐎', '🐑', '🐲', '🐛']
+```
+
+### 利用栈数据结构
+
+```js
+const animals = ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
+
+function flat(arr) {
+  let stack = arr.concat()
+  const result = []
+
+  while (stack.length) {
+    let elem = stack.pop()
+
+    if (Array.isArray(elem)) {
+      // stack.push(...elem) // 使用 ... 展开一层
+      // stack = stack.concat(elem) // 使用 concat 展开一层
+      ;[].push.apply(stack, elem) // 使用 apply 展开一层
+    } else {
+      result.unshift(elem)
+    }
+  }
+
+  return result
+}
+
+flat(animals) // ['🐷', '🐶', '🐂', '🐎', '🐑', '🐲', '🐛']
 ```
 
 ### toString() + split()
 
-缺陷：展开过程存在类型转换，不适用于某些数据类型，比如：null、{} ...
-
 ```js
-let array = [1, [2, [3, 4, 5]]]
+const animals = ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
 
-function flatten(array) {
-
-  // toString 默认展开所有元素
-  // 注意此时返回的元素都会变为字符串类型
-  return array.toString().split(',').map((num) => Number(num))
+function flat(arr) {
+  // toString() 能够递归展开数组中的每个元素
+  // 缺陷是只适用于字符串数组，对于其它数据类型存在类型转换
+  return arr.toString().split(',')
 }
 
-flatten(array) // [ 1, 2, 3, 4, 5 ]
+flat(animals) // ['🐷', '🐶', '🐂', '🐎', '🐑', '🐲', '🐛']
 ```
 
 ### JSON + 正则表达式
 
-缺陷：JSON.stringify() 会过滤掉某些数据类型，正则表达式会过滤掉 '['、']' 元素。
-
 ```js
-let array = [1, [2, [3, 4, 5]]]
+const animals = ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
 
-function flatten(array) {
-
-  let str = JSON.stringify(array)
+function flat(arr) {
+  let str = JSON.stringify(arr)
   str = str.replace(/(\[|\])/g, '') // 去掉所有的中括号
   str = '[' + str + ']' // 最外层再包裹一层中括号
   return JSON.parse(str)
 }
 
-flatten(array) // [ 1, 2, 3, 4, 5 ]
+flat(animals) // ['🐷', '🐶', '🐂', '🐎', '🐑', '🐲', '🐛']
 ```
 
+## 参考链接
+
+- [面试官连环追问：数组拍平（扁平化） flat 方法实现](https://segmentfault.com/a/1190000021366004)
