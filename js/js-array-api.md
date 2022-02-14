@@ -227,7 +227,7 @@ Array.prototype._pop = function () {
 
 js 中不改变原数组的方法可以分为：
 
-1. 处理数组相关的方法：concat、slice、join
+1. 处理数组相关的方法：concat、slice、flat、join
 2. 判断数组元素的方法：indexOf、lastIndexOf、includes
 
 ```js
@@ -269,7 +269,7 @@ js 中数组遍历的方法可以分为：
 
 1. 处理数组元素相关的方法：forEach、map、filter、reduce、reduceRight
 2. 查找数组元素相关的方法：some、every、find、findIndex
-3. 迭代器相关的方法：entries、keys、values
+3. 迭代器相关的方法：keys、values、entries
 
 ```js
 let arr = [...'12345']
