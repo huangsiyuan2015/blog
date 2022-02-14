@@ -74,6 +74,52 @@ console.log(p1) // {name: 'luffy', age: 13}
 console.log(p2) // {name: 'ace', age: 14}
 ```
 
+### 特殊值
+
+#### null & undefined
+
+null 是一个关键字，不能被赋值；
+
+undefined 是一个挂在 window 对象上的全局属性，属性描述符被设置为不可修改不可配置，在全局作用域下不能修改，但在局部作用域下可以被覆盖。
+
+```js
+undefined in window // true
+Object.getOwnPropertyDescriptor(window, undefined)
+// { value: undefined, writable: false, enumerable: false, configurable: false }
+
+// null 是关键字，赋值会报错
+null = 1 // Uncaught SyntaxError: invalid assignment left-hand side
+
+// undefined 不是关键字，能够被赋值
+// 全局作用域下无法修改
+undefined = 1 // 1
+undefined // undefined
+
+// 局部作用域可以被覆盖
+;(function () {
+  var undefined = 'foo'
+  // foo string，undefined 值和类型都发生了变化
+  console.log(undefined, typeof undefined)
+})()
+```
+
+#### NaN & Infinity
+
+NaN 和 Infinity 是 Number 类型中的特殊值，和 undefined 一样，它们也不是关键字，是挂在 window 对象上的全局属性。
+
+```js
+typeof NaN // "number"
+typeof Infinity // "number"
+
+NaN in window // true
+Infinity in window // true
+
+Object.getOwnPropertyDescriptor(window, NaN)
+// { value: NaN, writable: false, enumerable: false, configurable: false }
+Object.getOwnPropertyDescriptor(window, Infinity)
+// { value: Infinity, writable: false, enumerable: false, configurable: false }
+```
+
 ## 类型检测
 
 js 中检测数据类型的方法有3种：
