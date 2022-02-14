@@ -62,8 +62,10 @@
 
 ### html
 
-- dom
-- bom
+- DOM
+- BOM(Web API)
+  - 前端路由实现（hash 和 history）
+
 - browser
 
 ### http

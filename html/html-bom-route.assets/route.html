@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>route</title>
+</head>
+
+<body>
+  <!-- 锚点链接也会触发 hashchange 事件 -->
+  <p id="top">top</p>
+  <a href="#top" style="position: absolute; bottom: -200px;">top</a>
+
+  <ul>
+    <li><a href="#/home">home</a></li>
+    <li><a href="#/about">about</a></li>
+  </ul>
+  <script>
+    window.addEventListener('hashchange', (event) => {
+      console.log('hashchange event')
+      // console.log(event.newURL)
+      // console.log(location)
+      console.log(location.hash.slice(1))
+    })
+  </script>
+
+  <div>
+    <button onclick="to('/home')">home</button>
+    <button onclick="to('/about')">about</button>
+  </div>
+  <script>
+    function to(path) {
+      console.log(path)
+      history.pushState({ path }, '', path)
+    }
+  </script>
+</body>
+
+</html>
