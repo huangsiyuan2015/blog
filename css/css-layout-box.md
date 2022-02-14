@@ -25,3 +25,10 @@ margin 不参与元素宽度和高度的计算。
 怪异盒模型下，元素宽度/高度(width/height) = content + padding + border
 
 ![border-box](css-layout-box.assets/border-box.png)
+
+## 行内元素和块级元素
+
+- [彻底理解行内元素和块级元素，不必硬背](https://www.cnblogs.com/yc8930143/p/7237456.html)
+- [行内元素内外边距探究：为何span设置上下margin和padding不起效](https://cloud.tencent.com/developer/article/1537965?from=article.detail.1508215)
+- [inline-padding-margin.html](css-layout-box.assets\inline-padding-margin.html)
+

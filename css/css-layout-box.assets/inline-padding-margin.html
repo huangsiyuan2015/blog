@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>inline padding margin</title>
+  <style>
+    .bgc {
+      background-color: aqua;
+    }
+
+    .text {
+      /* 行内元素设置 width/height 无效 */
+      width: 100px;
+      height: 200px;
+      /* 行内元素设置竖直方向的 padding/margin 无效 */
+      padding-top: 10px;
+      padding-right: 30px;
+      margin-top: 10px;
+      margin-right: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="border: solid 1px;">
+    <span class="bgc">some text</span>
+  </div>
+  <div style="border: solid 1px;">
+    <span class="bgc text">some text</span><span class="bgc">another text</span>
+  </div>
+</body>
+
+</html>
