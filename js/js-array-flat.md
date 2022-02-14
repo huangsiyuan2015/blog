@@ -186,6 +186,45 @@ function flat(arr) {
 flat(animals) // ['🐷', '🐶', '🐂', '🐎', '🐑', '🐲', '🐛']
 ```
 
+### 利用生成器 Generator
+
+```js
+const animals = ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
+
+function* flat(arr) {
+  for (let item of arr) {
+    if (Array.isArray(item)) {
+      yield* flat(item)
+    } else {
+      yield item
+    }
+  }
+}
+
+[...flat(animals)] // ['🐷', '🐶', '🐂', '🐎', '🐑', '🐲', '🐛']
+```
+
+#### 控制展开层数
+
+```js
+const animals = ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
+
+function* flat(arr, dpt = 1) {
+  for (const item of arr) {
+    if (Array.isArray(item) && dpt > 0) {
+      yield* flat(item, dpt - 1)
+    } else {
+      yield item
+    }
+  }
+}
+
+[...flat(animals, 0)] // ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
+[...flat(animals)] // [ '🐷', '🐶', '🐂', '🐎', [ '🐑', [ '🐲' ] ], '🐛' ]
+[...flat(animals, 2)] // [ '🐷', '🐶', '🐂', '🐎', '🐑', [ '🐲' ], '🐛' ]
+[...flat(animals, Infinity)] // ['🐷', '🐶', '🐂', '🐎', '🐑', '🐲', '🐛']
+```
+
 ### toString() + split()
 
 ```js
