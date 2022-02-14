@@ -17,7 +17,7 @@
   - [数组常用 api 总结](js/js-array-api.md)
   - [类数组对象转换和数组拷贝（四种方法）](js/js-array-like.md)
   - [数组去重（三种思路，九种方法）](js/js-array-unique.md)
-  - [数组展开（六种方法）](js/js-array-flat.md)
+  - [数组展开（八种方法）](js/js-array-flat.md)
   - [数组排序（十大经典排序算法）](js/js-array-sort.md)
 - 函数
   - [作用域链和闭包](js/js-func-closure.md)
