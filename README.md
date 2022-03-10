@@ -2,7 +2,7 @@
 
 前端知识体系
 
-### js
+### javascript
 
 - 数据类型
   - [数据类型和类型转换](js/js-type.md)
@@ -65,11 +65,16 @@
 - DOM
 - BOM(Web API)
   - [前端路由实现（hash 和 history）](html/html-bom-route.md)
-- browser
-  - [浏览器缓存策略](html/html-browser-cache.md)
-
 
 ### http
+
+### browser
+
+- [浏览器缓存策略](browser/browser-cache.md)
+
+### optimize
+
+- [防抖和节流](optimize/optimize-debounce-throttle.md)
 
 ### react
 
@@ -81,10 +86,6 @@
 - react-router
 - redux/react-redux
 - react-query
-
-### 性能优化
-
-- [防抖和节流](optimize/optimize-debounce-throttle.md)
 
 ### 数据结构
 
