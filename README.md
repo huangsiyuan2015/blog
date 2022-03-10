@@ -66,6 +66,8 @@
 - BOM(Web API)
   - [前端路由实现（hash 和 history）](html/html-bom-route.md)
 - browser
+  - [浏览器缓存策略](html/html-browser-cache.md)
+
 
 ### http
 
