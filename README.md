@@ -68,6 +68,12 @@
 
 ### http
 
+- [HTTP/1](http/http1.md)
+- 参考书籍
+  - 《图解 HTTP》
+  - 《HTTP/2 in Action》
+  - 《HTTP 权威指南》
+
 ### browser
 
 - [浏览器缓存策略](browser/browser-cache.md)

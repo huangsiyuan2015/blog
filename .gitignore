@@ -3,9 +3,11 @@
 /devtool/
 
 # 暂时忽略文件夹
-/http/
 /data-structure/
 
 # 忽略文件类型
 *.pdf
 *.mhtml
+
+# 忽略文件
+form-urlencoded.html
