@@ -42,7 +42,7 @@ Content-Type: text/html; charset=UTF-8 // 服务器返回的文件类型
 
 #### 状态码(Status Code)
 
-![status-code](http1.assets/status-code.png)
+![status-code](http-basic.assets/status-code.png)
 
 常见的 HTTP 状态码：
 
@@ -121,6 +121,7 @@ FireFox、Chrome 都做过管线化的试验，但是由于各种原因，它们
 
 - 《图解 HTTP》2.7 持久连接节省通信量
 - 《HTTP/2 in Action》2.1.2 HTTP/1.1 管道化
+- [HTTP详解长短连接，管道化，队头阻塞及它们之间的关系](https://blog.csdn.net/fesfsefgs/article/details/108294050)
 
 #### 分块传输(Chunk Transfer)
 
@@ -183,3 +184,22 @@ Host: www.baidu.com
 参考链接：
 
 - 《图解 HTTP》5.1 用单台虚拟主机实现多个域名
+
+## HTTP/2
+
+参考链接：[30｜HTTP/2：如何提升网络速度？](https://time.geekbang.org/column/article/148546)
+
+HTTP/2 新特性：
+
+1. 多路复用(Multiplexing)
+2. 设置请求的优先级
+3. 服务器推送
+4. 头部压缩
+
+## HTTP/3
+
+参考链接：[31｜HTTP/3：甩掉TCP、TLS 的包袱，构建高效网络](https://time.geekbang.org/column/article/150159)
+
+HTTP/3 新特性：
+
+1. 解决 TCP 队头阻塞问题
