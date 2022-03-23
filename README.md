@@ -68,7 +68,7 @@
 
 ### http
 
-- [HTTP/1](http/http1.md)
+- [HTTP 协议](http/http-basic.md)
 - 参考书籍
   - 《图解 HTTP》
   - 《HTTP/2 in Action》
