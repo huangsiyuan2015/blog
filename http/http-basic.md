@@ -198,7 +198,10 @@ HTTP/2 新特性：
 
 ## HTTP/3
 
-参考链接：[31｜HTTP/3：甩掉TCP、TLS 的包袱，构建高效网络](https://time.geekbang.org/column/article/150159)
+参考链接：
+
+- [31｜HTTP/3：甩掉TCP、TLS 的包袱，构建高效网络](https://time.geekbang.org/column/article/150159)
+- [QUIC 和 HTTP/3 队头阻塞的细节](https://zhuanlan.zhihu.com/p/330300133)
 
 HTTP/3 新特性：
 
