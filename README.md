@@ -8,6 +8,7 @@
   - [数据类型和类型转换](js/js-type.md)
   - [浮点数精度问题（0.1 + 0.2 !== 0.3）](js/js-type-number.md)
   - [对象的浅拷贝和深拷贝](js/js-type-clone.md)
+  - [集合类型 Set 和 Map](js/js-type-collection.md)
 - 面向对象
   - [创建对象的方法和 new 运算符](js/js-oop-object.md)
   - [this 指向和 call/apply/bind 方法](js/js-oop-this.md)
