@@ -103,6 +103,17 @@ undefined // undefined
 })()
 ```
 
+null 和 undefined 的区别：
+
+1. **语法**上的区别：null 是关键字，不能被赋值；undefined 是一个属性名，可以被赋值，全局作用域下不会被修改，但局部作用域可能被修改(`void(0)`)；
+2. **语义**上的区别：undefined 表示未赋值，null 表示赋值了但是值为"空"；
+3. **类型转换**的区别：null 转为数值时为 0，undefined 转为数值时为 NaN。
+
+参考链接：
+
+- [What Does javascript:void(0); Mean?](https://www.freecodecamp.org/news/javascript-void-keyword-explained/)
+- [void 运算符](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/void)
+
 #### NaN & Infinity
 
 NaN 和 Infinity 是 Number 类型中的特殊值，和 undefined 一样，它们也不是关键字，是挂在 window 对象上的全局属性。
