@@ -131,6 +131,22 @@ Object.getOwnPropertyDescriptor(window, Infinity)
 // { value: Infinity, writable: false, enumerable: false, configurable: false }
 ```
 
+注意，NaN 不代表某一个值，而是代表某一类值，所以 NaN 不等于自身，不能使用 == 或者 === 来判断 NaN，需要使用 isNaN() 来判断。
+
+```js
+NaN == NaN // false
+NaN === NaN // false
+
+is.NaN(NaN) // true
+Number.isNaN(NaN) // true
+
+// is.NaN() 和 Number.isNaN() 的区别：
+// is.NaN() 存在隐式转换，会先将参数转为数值再进行判断
+// Number.isNaN() 不存在隐式转换，直接判断更加准确
+isNaN('hello') // true
+Number.isNaN('hello') // false
+```
+
 ## 类型检测
 
 js 中检测数据类型的方法有3种：
