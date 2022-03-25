@@ -29,7 +29,7 @@
   - [手写 Promise 以及相关 api](js/js-async-promise-aplus.md)
 - 执行机制
 - 手写源码
-  - [instanceof](source/instanceof.js)
+  - [手写 instanceof 运算符](source/instanceof.js)
   - [new](source/new.js)
   - [iterator](source/iterator.js)
   - [call](source/call.js)
