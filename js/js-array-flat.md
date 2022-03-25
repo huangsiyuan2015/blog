@@ -144,8 +144,7 @@ const animals = ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']]
 function flat(arr, dpt = 1) {
   let clone = arr.slice()
 
-  while (dpt > 0) {
-    if (dpt === Infinity && clone.every((elem) => !Array.isArray(elem))) break
+  while (clone.some((elem) => Array.isArray(elem)) && dpt) {
     clone = [].concat(...clone)
     dpt--
   }
