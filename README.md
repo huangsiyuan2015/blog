@@ -42,6 +42,9 @@
   - [some](source/some.js)
   - [every](source/every.js)
   - [reduce](source/reduce.js)
+- 其它
+  - [使用 for-of 遍历对象（iterator 接口）](source/for-of.js)
+
 
 ### css
 
