@@ -26,3 +26,4 @@ div 元素水平垂直居中分为两种情况：
 
 - [（史上最全）div居中的几种方法](https://juejin.cn/post/6844903821529841671)
 - [面试官：你能实现多少种水平垂直居中的布局（定宽高和不定宽高）](https://juejin.cn/post/6844903982960214029)
+- [绝对定位上下左右都为0 margin为auto为什么能居中](https://www.cnblogs.com/caoshufang/p/13708299.html)
