@@ -5,156 +5,131 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>水平垂直居中</title>
-  <link rel="stylesheet" href="./bg-color.css">
+  <title>元素水平垂直居中</title>
   <style>
-    /* 情况一：元素固定宽高 */
-
-    /* 写法一：绝对定位 + calc() */
-    /* .container {
+    /* 基础样式 */
+    .container {
       height: 600px;
-      position: relative;
+      background-color: aqua;
     }
 
     .box {
-      width: 200px;
+      width: 300px;
       height: 200px;
-      position: absolute;
-      left: calc(50% - 100px);
-      top: calc(50% - 100px);
-    } */
+      background-color: aquamarine;
+    }
 
-    /* 写法二：绝对定位 + 负外边距 */
-    /* .container {
-      height: 600px;
+    /* 场景一：要居中的元素固定宽高 */
+
+    /* 方法一：绝对定位 + 负外边距 */
+    /* .con_center {
       position: relative;
     }
 
-    .box {
-      width: 200px;
-      height: 200px;
+    .box_center {
       position: absolute;
       left: 50%;
       top: 50%;
-      margin: -100px 0 0 -100px;
+      margin-left: -150px;
+      margin-top: -100px;
     } */
 
-    /* 
-       写法三：绝对定位 + margin: atuo
-       子元素一定要设置宽高，否则会被拉伸填满父容器
-     */
-    /* .container {
-      height: 600px;
+    /* 方法二：绝对定位 + calc() */
+    /* .con_center {
       position: relative;
     }
 
-    .box {
-      width: 200px;
-      height: 200px;
+    .box_center {
+      position: absolute;
+      left: calc(50% - 150px);
+      top: calc(50% - 100px);
+    } */
+
+    /* 方法三：绝对定位 + margin: auto */
+    /* 注意：子元素一定要设置宽高，否则会被拉伸填满父容器 */
+    /* .con_center {
+      position: relative;
+    }
+
+    .box_center {
       position: absolute;
       left: 0;
-      top: 0;
       right: 0;
+      top: 0;
       bottom: 0;
       margin: auto;
     } */
 
-    /* 情况二：元素不定宽高 */
+    /* 场景二：要居中的元素不定宽高 */
 
-    /* 写法一：绝对定位 + translate() */
-    /* .container {
-      height: 600px;
+    /* 方法一：绝对定位 + transform: translate() */
+    /* .con_center {
       position: relative;
     }
 
-    .box {
-      width: 200px;
-      height: 200px;
+    .box_center {
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
     } */
 
-    /* 写法二：flex 布局 */
-    /* .container {
-      height: 600px;
+    /* 方法二：flex 布局 */
+    /* .con_center {
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-
-    .box {
-      width: 200px;
-      height: 200px;
     } */
 
-    /* 
-       写法三：flex 布局 + margin: auto
-       子元素可以不必设置宽高，内容撑开宽高
-    */
-    /* .container {
-      height: 600px;
+    /* 方法三：flex 布局 + margin: auto */
+    /* 注意：子元素可以不必设置宽高，内容撑开宽高 */
+    /* .con_center {
       display: flex;
     }
 
-    .box {
-      width: 200px;
-      height: 200px;
+    .box_center {
       margin: auto;
     } */
 
-    /* 
-       写法四：grid 布局 + margin: auto
-       子元素可以不必设置宽高，内容撑开宽高
-    */
-    /* .container {
-      height: 600px;
+    /* 方法四：grid 布局 + margin: auto */
+    /* 注意：子元素可以不必设置宽高，内容撑开宽高 */
+    /* .con_center {
       display: grid;
     }
 
-    .box {
-      width: 200px;
-      height: 200px;
+    .box_center {
       margin: auto;
     } */
 
-    /* 写法五：table-cell 布局 + margin: 0 auto */
-    /* .container {
+    /* 方法五：table-cell 布局 + margin: 0 auto */
+    /* 注意：父容器的宽度必须设置为定长(px)，设置 100% 不起效 */
+    /* .con_center {
       width: 100vw;
-      height: 600px;
       display: table-cell;
       vertical-align: middle;
     }
 
-    .box {
-      width: 200px;
-      height: 200px;
+    .box_center {
       margin: 0 auto;
     } */
 
-    /* 写法六：table-cell 布局 + display: inline-block */
-    .container {
+    /* 方法六：tabel-cell 布局 + display: inline-block */
+    .con_center {
       width: 100vw;
-      height: 600px;
       display: table-cell;
-      vertical-align: middle;
       text-align: center;
+      vertical-align: middle;
     }
 
-    .box {
+    .box_center {
       display: inline-block;
-      width: 200px;
-      height: 200px;
     }
   </style>
-
-
 </head>
 
 <body>
-  <div class="container">
-    <div class="box">box</div>
+  <div class="container con_center">
+    <div class="box box_center">box</div>
   </div>
 </body>
 
